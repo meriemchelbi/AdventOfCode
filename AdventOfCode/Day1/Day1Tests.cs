@@ -19,9 +19,19 @@ namespace AdventOfCode.Day1
         {
             Solver solver = new();
 
-            var result = solver.Solve();
+            var result = solver.Solve2();
 
             Assert.Equal(1015476, result);
+        }
+        
+        [Fact]
+        public void Part2_Result()
+        {
+            Solver solver = new();
+
+            var result = solver.Solve3();
+
+            Assert.Equal(200878544, result);
         }
     }
 }
