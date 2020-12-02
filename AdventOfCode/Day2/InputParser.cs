@@ -10,7 +10,7 @@ namespace AdventOfCode.Day2
         {
             List<PasswordSample> output = new();
 
-            var path = "C:\\Users\\meriemc\\Documents\\GitHub\\AdventOfCode\\AdventOfCode\\Day2\\Input.txt";
+            var path = Path.GetFullPath("Day2\\Input.txt");
 
             using (var sr = new StreamReader(path))
             {

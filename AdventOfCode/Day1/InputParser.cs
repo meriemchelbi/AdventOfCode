@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 
 namespace AdventOfCode.Day1
 {
@@ -10,7 +9,7 @@ namespace AdventOfCode.Day1
         {
             List<int> output = new();
 
-            var path = "C:\\Users\\meriemc\\Documents\\GitHub\\AdventOfCode\\AdventOfCode\\Day1\\Input.txt";
+            var path = Path.GetFullPath("Day1\\Input.txt");
 
             using (var sr = new StreamReader(path))
             {
