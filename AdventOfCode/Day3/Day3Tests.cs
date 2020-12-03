@@ -14,6 +14,19 @@ namespace AdventOfCode.Day3
             Assert.Equal(323, result.Count);
         }
 
+        [Theory]
+        [InlineData(30, 25, 28)]
+        [InlineData(30, 28, 1)]
+        [InlineData(30, 29, 2)]
+        public void CalculatePosition(int rowLength, int currentPosition, int expectedPosition)
+        {
+            Solver solver = new();
+
+            var result = solver.CalculatePosition(currentPosition, rowLength);
+
+            Assert.Equal(expectedPosition, result);
+        }
+
         [Fact]
         public void Part1_Result()
         {
@@ -21,8 +34,7 @@ namespace AdventOfCode.Day3
 
             var result = solver.Solve();
 
-            Assert.NotEqual(78, result);
-            Assert.NotEqual(70, result);
+            Assert.Equal(262, result);
         }
 
         [Fact]

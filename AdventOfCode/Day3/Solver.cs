@@ -1,4 +1,4 @@
-﻿using AdventOfCode.Day2;
+﻿using System;
 using System.Linq;
 
 namespace AdventOfCode.Day3
@@ -13,34 +13,44 @@ namespace AdventOfCode.Day3
             var rowPos = 0;
             var rowLength = input[0].Length;
 
-            foreach (var row in input)
+            for (int i = 1; i < input.Count; i++)
             {
-                var remainder = rowLength - 1 - rowPos;
-                if (remainder >= 3)
-                    rowPos += 3;
-                else
-                    rowPos = 3 + remainder;
-                    
+                rowPos = CalculatePosition(rowPos, rowLength);
 
-                var myPosition = row[rowPos];
+                var myPosition = input[i][rowPos];
 
                 switch (myPosition) // TODO refactor to use new switch expression
                 {
                     case '.':
-                        row[rowPos] = 'O';
+                        input[i][rowPos] = 'O';
                         break;
                     case '#':
-                        row[rowPos] = 'X';
+                        input[i][rowPos] = 'X';
                         break;
                     default:
                         break;
                 }
-
+                
             }
+
 
             return input.Sum(i => i.Count(pos => pos == 'X'));
         }
-        
+
+        public int CalculatePosition(int rowPos, int rowLength)
+        {
+            var maxIndex = rowLength - 1;
+            if (rowPos <= maxIndex - 3)
+                rowPos += 3;
+            else
+            {
+                var remainder = maxIndex - rowPos;
+                rowPos = 2 - Math.Abs(remainder); // 2 because index 2 is the third position
+            }
+
+            return rowPos;
+        }
+
         internal int Solve2()
         {
             return 0;
