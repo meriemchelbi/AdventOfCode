@@ -22,6 +22,7 @@ namespace AdventOfCode.Day3
             var result = solver.Solve();
 
             Assert.NotEqual(78, result);
+            Assert.NotEqual(70, result);
         }
 
         [Fact]

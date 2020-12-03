@@ -15,13 +15,12 @@ namespace AdventOfCode.Day3
 
             foreach (var row in input)
             {
-                if (rowPos >= rowLength)
-                {
-                    //var remainder = rowLength - rowPos;
-                    //rowPos = 0;
-                }
-                else
+                var remainder = rowLength - 1 - rowPos;
+                if (remainder >= 3)
                     rowPos += 3;
+                else
+                    rowPos = 3 + remainder;
+                    
 
                 var myPosition = row[rowPos];
 
