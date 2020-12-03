@@ -1,11 +1,13 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 
 namespace AdventOfCode.Day3
 {
     class InputParser
     {
-        public string Parse()
+        public List<char[]> Parse()
         {
+            var output = new List<char[]>();
             var path = Path.GetFullPath("Day3\\Input.txt");
 
             using (var sr = new StreamReader(path))
@@ -14,11 +16,11 @@ namespace AdventOfCode.Day3
 
                 while ((line = sr.ReadLine()) != null)
                 {
-                    // code goes here
+                    output.Add(line.ToCharArray());
                 }
             }
 
-            return string.Empty;
+            return output;
         }
     }
 }

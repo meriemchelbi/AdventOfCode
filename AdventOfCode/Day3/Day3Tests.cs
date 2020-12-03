@@ -11,7 +11,7 @@ namespace AdventOfCode.Day3
 
             var result = parser.Parse();
 
-            Assert.Equal(1000, result);
+            Assert.Equal(323, result.Count);
         }
 
         [Fact]
@@ -21,7 +21,7 @@ namespace AdventOfCode.Day3
 
             var result = solver.Solve();
 
-            Assert.Equal(546, result);
+            Assert.NotEqual(78, result);
         }
 
         [Fact]
