@@ -15,8 +15,13 @@ namespace AdventOfCode.Day3
 
             foreach (var row in input)
             {
-                if (rowPos == rowLength)
-                    rowPos = 0;
+                if (rowPos >= rowLength)
+                {
+                    //var remainder = rowLength - rowPos;
+                    //rowPos = 0;
+                }
+                else
+                    rowPos += 3;
 
                 var myPosition = row[rowPos];
 
@@ -32,7 +37,6 @@ namespace AdventOfCode.Day3
                         break;
                 }
 
-                rowPos++;
             }
 
             return input.Sum(i => i.Count(pos => pos == 'X'));
