@@ -5,7 +5,7 @@ namespace AdventOfCode.Day3
 {
     class Solver
     {
-        internal int Solve()
+        internal int Solve(int rightSlope, int downSlope)
         {
             InputParser parser = new();
             var input = parser.Parse();
@@ -13,9 +13,9 @@ namespace AdventOfCode.Day3
             var rowPos = 0;
             var rowLength = input[0].Length;
 
-            for (int i = 1; i < input.Count; i++)
+            for (int i = 1; i < input.Count; i += downSlope)
             {
-                rowPos = CalculatePosition(rowPos, rowLength);
+                rowPos = CalculatePosition(rowPos, rowLength, rightSlope);
 
                 var myPosition = input[i][rowPos];
 
@@ -37,15 +37,15 @@ namespace AdventOfCode.Day3
             return input.Sum(i => i.Count(pos => pos == 'X'));
         }
 
-        public int CalculatePosition(int rowPos, int rowLength)
+        public int CalculatePosition(int rowPos, int rowLength, int rightSlope)
         {
             var maxIndex = rowLength - 1;
             if (rowPos <= maxIndex - 3)
-                rowPos += 3;
+                rowPos += rightSlope;
             else
             {
                 var remainder = maxIndex - rowPos;
-                rowPos = 2 - Math.Abs(remainder); // 2 because index 2 is the third position
+                rowPos = (rightSlope - 1) - Math.Abs(remainder); // 2 because index 2 is the third position
             }
 
             return rowPos;

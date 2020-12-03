@@ -22,7 +22,7 @@ namespace AdventOfCode.Day3
         {
             Solver solver = new();
 
-            var result = solver.CalculatePosition(currentPosition, rowLength);
+            var result = solver.CalculatePosition(currentPosition, rowLength, 3);
 
             Assert.Equal(expectedPosition, result);
         }
@@ -32,7 +32,7 @@ namespace AdventOfCode.Day3
         {
             Solver solver = new();
 
-            var result = solver.Solve();
+            var result = solver.Solve(3, 1);
 
             Assert.Equal(262, result);
         }
