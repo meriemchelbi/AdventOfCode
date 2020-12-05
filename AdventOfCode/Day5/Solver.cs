@@ -10,6 +10,37 @@ namespace AdventOfCode.Day5
         {
             var parser = new InputParser();
             var input = parser.Parse();
+
+            var seatIds = ComputeSeatIds(input);
+
+            return seatIds.Max();
+        }
+
+        internal int Solve2()
+        {
+            var parser = new InputParser();
+            var input = parser.Parse();
+
+            var seatIds = ComputeSeatIds(input);
+
+            seatIds.Sort();
+            var mySeat = 0;
+
+            for (int i = 0; i < seatIds.Count + 2; i++)
+            {
+                var seat = seatIds[i];
+                if (seatIds[i + 1] != seat + 1)
+                {
+                    mySeat = seat + 1;
+                    break;
+                }
+            }
+
+            return mySeat;
+        }
+
+        internal List<int> ComputeSeatIds(List<string> input)
+        {
             var seatIds = new List<int>();
 
             foreach (var item in input)
@@ -24,15 +55,7 @@ namespace AdventOfCode.Day5
                 seatIds.Add(seatId);
             }
 
-            return seatIds.Max();
-        }
-
-        internal int Solve2()
-        {
-            var parser = new InputParser();
-            var input = parser.Parse();
-
-            return 0;
+            return seatIds;
         }
 
         internal int ComputeSeatRow(string rowChars)

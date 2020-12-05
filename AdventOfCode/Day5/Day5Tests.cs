@@ -64,7 +64,7 @@ namespace AdventOfCode.Day5
 
             var result = solver.Solve2();
 
-            Assert.Equal(133, result);
+            Assert.Equal(699, result);
         }
     }
 }
