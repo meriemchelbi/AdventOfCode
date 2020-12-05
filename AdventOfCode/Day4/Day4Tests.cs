@@ -135,7 +135,7 @@ namespace AdventOfCode.Day4
 
             var result = solver.Solve2();
 
-            Assert.Equal(1, result);
+            Assert.Equal(133, result);
         }
     }
 }
