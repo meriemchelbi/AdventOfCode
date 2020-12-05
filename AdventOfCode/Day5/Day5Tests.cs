@@ -1,6 +1,4 @@
-﻿using AdventOfCode.Day4;
-using System.Collections.Generic;
-using Xunit;
+﻿using Xunit;
 
 namespace AdventOfCode.Day5
 {
@@ -13,7 +11,40 @@ namespace AdventOfCode.Day5
 
             var result = parser.Parse();
 
-            Assert.IsType<List<Passport>>(result);
+            Assert.Equal(869, result.Count);
+        }
+
+        [Fact]
+        public void ComputeSeatRow()
+        {
+            Solver solver = new();
+
+            var result = solver.ComputeSeatRow("FBFBBFF");
+
+            Assert.Equal(44, result);
+        }
+        
+        [Fact]
+        public void ComputeSeatColumn()
+        {
+            Solver solver = new();
+
+            var result = solver.ComputeSeatColumn("RLR");
+
+            Assert.Equal(5, result);
+        }
+
+        [Theory]
+        [InlineData(70, 7, 567)]
+        [InlineData(14, 7, 119)]
+        [InlineData(102, 4, 820)]
+        public void ComputeSeatId(int row, int column, int expected)
+        {
+            var sut = new Solver();
+
+            var result = sut.ComputeSeatId(row, column);
+
+            Assert.Equal(expected, result);
         }
 
         [Fact]
@@ -23,7 +54,7 @@ namespace AdventOfCode.Day5
 
             var result = solver.Solve();
 
-            Assert.Equal(245, result);
+            Assert.Equal(915, result);
         }
 
         [Fact]
