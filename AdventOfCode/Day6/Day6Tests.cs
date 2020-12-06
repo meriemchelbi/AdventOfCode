@@ -10,9 +10,19 @@ namespace AdventOfCode.Day6
         {
             InputParser parser = new();
 
-            var result = parser.Parse();
+            var result = parser.ParseGroups();
 
             Assert.IsType<List<string>>(result);
+        }
+        
+        [Fact]
+        public void InputParser_Individuals_ReturnsList()
+        {
+            InputParser parser = new();
+
+            var result = parser.ParseIndividuals();
+
+            Assert.IsType<List<string[]>>(result);
         }
 
         [Theory]
@@ -39,6 +49,20 @@ namespace AdventOfCode.Day6
             Assert.Equal(expected, result);
         }
 
+        [Theory]
+        [InlineData("a", "b", "c", "")]
+        [InlineData("abc", "abc", "abc", "abc")]
+        [InlineData("ab", "abc", "bc", "b")]
+        public void YesByAll(string group1, string group2, string group3, string expected)
+        {
+            Solver solver = new();
+
+            var input = new string[] { group1, group2, group3 };
+
+            var result = solver.YesByAll(input);
+
+            Assert.Equal(expected, result);
+        }
 
         [Fact]
         public void Part1_Result()
@@ -57,7 +81,7 @@ namespace AdventOfCode.Day6
 
             var result = solver.Solve2();
 
-            Assert.Equal(699, result);
+            Assert.Equal(3392, result);
         }
     }
 }

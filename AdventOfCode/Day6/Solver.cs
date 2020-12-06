@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace AdventOfCode.Day6
 {
@@ -9,7 +10,7 @@ namespace AdventOfCode.Day6
         internal int Solve()
         {
             var parser = new InputParser();
-            var input = parser.Parse();
+            var input = parser.ParseGroups();
 
             var deduped = input.Select(i => DeduplicateGroupAnswers(i));
 
@@ -31,9 +32,27 @@ namespace AdventOfCode.Day6
         internal int Solve2()
         {
             var parser = new InputParser();
-            var input = parser.Parse();
+            var input = parser.ParseIndividuals();
 
-            return 0;
+            var deduped = input.Select(i => YesByAll(i));
+
+            var scores = deduped.Select(d => CalculateAnswerScore(d));
+
+            return scores.Sum();
+        }
+
+        internal string YesByAll(string[] groupResponses)
+        {
+            var first = groupResponses[0];
+            var commonResponses = new StringBuilder();
+
+            foreach (var item in first)
+            {
+                if (groupResponses.All(g => g.Contains(item)))
+                    commonResponses.Append(item);
+            }
+
+            return commonResponses.ToString();
         }
     }
 }
