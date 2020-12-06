@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using System.Collections.Generic;
+using Xunit;
 
 namespace AdventOfCode.Day6
 {
@@ -11,8 +12,33 @@ namespace AdventOfCode.Day6
 
             var result = parser.Parse();
 
-            Assert.Equal(869, result.Count);
+            Assert.IsType<List<string>>(result);
         }
+
+        [Theory]
+        [InlineData("abcxabcyabcz","abcxyz")]
+        [InlineData("aaaa","a")]
+        public void DeduplicateGroupAnswers(string input, string expected)
+        {
+            Solver solver = new();
+
+            var result = solver.DeduplicateGroupAnswers(input);
+
+            Assert.Equal(expected, result);
+        }
+        
+        [Theory]
+        [InlineData("abcxyz", 6)]
+        [InlineData("a", 1)]
+        public void CalculateAnswerScore(string input, int expected)
+        {
+            Solver solver = new();
+
+            var result = solver.CalculateAnswerScore(input);
+
+            Assert.Equal(expected, result);
+        }
+
 
         [Fact]
         public void Part1_Result()
@@ -21,7 +47,7 @@ namespace AdventOfCode.Day6
 
             var result = solver.Solve();
 
-            Assert.Equal(915, result);
+            Assert.Equal(6335, result);
         }
 
         [Fact]
