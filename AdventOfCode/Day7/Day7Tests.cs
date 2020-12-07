@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Xunit;
 
 namespace AdventOfCode.Day7
@@ -58,7 +57,7 @@ namespace AdventOfCode.Day7
 
             var result = solver.Solve2();
 
-            Assert.Equal(3392, result);
+            Assert.Equal(27526, result);
         }
     }
 }

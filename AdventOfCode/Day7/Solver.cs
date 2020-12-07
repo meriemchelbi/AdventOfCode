@@ -13,11 +13,12 @@ namespace AdventOfCode.Day7
 
             FindContainingColours(input, "shiny gold", colours);
 
-
             return colours.Distinct().Count();
         }
 
-        internal void FindContainingColours(Dictionary<string, Dictionary<string, int>> input, string colour, List<string> colours)
+        internal void FindContainingColours(Dictionary<string, Dictionary<string, int>> input,
+                                            string colour,
+                                            List<string> colours)
         {
             var containColour = new List<string>();
 
@@ -48,7 +49,25 @@ namespace AdventOfCode.Day7
             var parser = new InputParser();
             var input = parser.Parse();
 
-            return 0;
+            return CountContainedBags(input, "shiny gold");
+        }
+
+        internal int CountContainedBags(Dictionary<string, Dictionary<string, int>> input, string colour)
+        {
+            var contained = input[colour];
+            var total = 0;
+
+            if (contained is null)
+            {
+                return 0;
+            }
+
+            foreach (var item in contained)
+            {
+                total += item.Value + (item.Value * CountContainedBags(input, item.Key));
+            }
+
+            return total;
         }
     }
 }
