@@ -32,7 +32,7 @@ namespace AdventOfCode.Day8
 
             var result = solver.Solve2();
 
-            Assert.Equal(27526, result);
+            Assert.Equal(1539, result);
         }
     }
 }
