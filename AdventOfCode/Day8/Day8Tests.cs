@@ -12,7 +12,7 @@ namespace AdventOfCode.Day8
 
             var result = parser.Parse();
 
-            Assert.Equal(594, result.Count);
+            Assert.Equal(601, result.Count);
         }
 
         [Fact]
@@ -22,7 +22,7 @@ namespace AdventOfCode.Day8
 
             var result = solver.Solve();
 
-            Assert.Equal(378, result);
+            Assert.Equal(1489, result);
         }
 
         [Fact]
