@@ -5,9 +5,9 @@ namespace AdventOfCode.Day9
 {
     class InputParser
     {
-        public List<string> Parse()
+        public List<long> Parse()
         {
-            var output = new List<string>();
+            var output = new List<long>();
             var path = Path.GetFullPath("Day9\\Input.txt");
 
             using (var sr = new StreamReader(path))
@@ -16,7 +16,8 @@ namespace AdventOfCode.Day9
 
                 while ((line = sr.ReadLine()) != null)
                 {
-                    
+                    var num = long.Parse(line);
+                    output.Add(num);
                 }
             }
 
