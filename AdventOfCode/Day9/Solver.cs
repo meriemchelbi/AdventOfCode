@@ -5,7 +5,7 @@ namespace AdventOfCode.Day9
 {
     class Solver
     {
-        internal long Solve()
+        internal long FindInvalidEntry()
         {
             var parser = new InputParser();
             var input = parser.Parse();
@@ -42,12 +42,35 @@ namespace AdventOfCode.Day9
             return false;
         }
 
-        internal int Solve2()
+        internal long Solve2()
         {
             var parser = new InputParser();
             var input = parser.Parse();
+            var firstIndex = 0;
+            var lastIndex = 0;
 
-            return 0;
+            for (int start = 0; start < input.Count; start++)
+            {
+                long sum = 0;
+
+                for (int i = start; i < input.Count - start; i++)
+                {
+                    sum += input[i];
+                    if (sum == 22406676)
+                    {
+                        firstIndex = start;
+                        lastIndex = i;
+                        break;
+                    }
+                }
+            }
+
+            var contiguousLength = lastIndex - firstIndex;
+            var contiguousNumbers = input.GetRange(firstIndex, contiguousLength);
+            contiguousNumbers.Sort();
+            var sumSmallestLargest = contiguousNumbers[0] + contiguousNumbers[^1];
+
+            return sumSmallestLargest;
         }
     }
 }

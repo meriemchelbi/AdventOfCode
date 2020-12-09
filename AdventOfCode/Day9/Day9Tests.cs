@@ -52,7 +52,7 @@ namespace AdventOfCode.Day9
         {
             Solver solver = new();
 
-            var result = solver.Solve();
+            var result = solver.FindInvalidEntry();
             
             Assert.Equal(22406676, result);
         }
@@ -64,7 +64,7 @@ namespace AdventOfCode.Day9
 
             var result = solver.Solve2();
 
-            Assert.Equal(1539, result);
+            Assert.Equal(2942387, result);
         }
     }
 }
