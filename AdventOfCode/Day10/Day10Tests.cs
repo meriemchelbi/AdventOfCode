@@ -9,7 +9,7 @@ namespace AdventOfCode.Day10
         {
             InputParser parser = new();
 
-            var result = parser.Parse();
+            var result = parser.Parse("Input");
 
             Assert.Equal(107, result.Count);
             Assert.Equal(105, result[0]);
@@ -21,7 +21,7 @@ namespace AdventOfCode.Day10
         {
             Solver solver = new();
 
-            var result = solver.Solve();
+            var result = solver.Solve("Input");
 
             Assert.Equal(2432, result);
         }
@@ -31,9 +31,29 @@ namespace AdventOfCode.Day10
         {
             Solver solver = new();
 
-            var result = solver.Solve2();
+            var result = solver.Solve2("Input");
 
             Assert.Equal(1539, result);
+        }
+        
+        [Fact]
+        public void Part2_SmallInput()
+        {
+            Solver solver = new();
+
+            var result = solver.Solve2("TestInputSmall");
+
+            Assert.Equal(8, result);
+        }
+        
+        [Fact]
+        public void Part2_BigInput()
+        {
+            Solver solver = new();
+
+            var result = solver.Solve2("TestInputBig");
+
+            Assert.Equal(19208, result);
         }
     }
 }

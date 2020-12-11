@@ -5,13 +5,14 @@
 	  <LangVersion>9</LangVersion>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="Day10\Input.txt" />
-    <None Remove="Day9\Input.txt" />
-  </ItemGroup>
 	
   <ItemGroup>
+    <Content Include="Day10\TestInputBig.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Day10\TestInputSmall.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Day1\Input.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

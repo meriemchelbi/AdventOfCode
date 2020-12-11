@@ -5,10 +5,10 @@ namespace AdventOfCode.Day10
 {
     class InputParser
     {
-        public List<int> Parse()
+        public List<int> Parse(string fileName)
         {
             var output = new List<int>();
-            var path = Path.GetFullPath("Day10\\Input.txt");
+            var path = Path.GetFullPath($"Day10\\{fileName}.txt");
 
             using (var sr = new StreamReader(path))
             {
