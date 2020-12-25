@@ -5,143 +5,99 @@ namespace AdventOfCode.Day11
 {
     class Solver
     {
-        internal long Solve(string inputFileName)
+        internal List<char[]> _input;
+
+        internal int Solve(string inputFileName)
         {
             var parser = new InputParser();
-            var input = parser.Parse(inputFileName);
-            input.Sort();
+            _input = parser.Parse(inputFileName);
 
-            var deviceJoltage = input[^1] + 3;
-            input.Add(deviceJoltage);
+            var occupiedSeats = int.MinValue;
+            var previousOccupied = int.MaxValue;
+            var layoutWidth = _input[0].Length;
 
-            var oneJoltDifferences = 0;
-            var threeJoltDifferences = 0;
-
-            var current = 0; // charging outlet joltage
-
-            while (current < deviceJoltage)
+            while (occupiedSeats != previousOccupied)
             {
-                var options = CalculateAdaptorOptions(current);
+                var newLayout = new List<char[]>();
 
-                var selected = input.FirstOrDefault(i => options.Any(o => o == i));
-
-                if (selected == default)
-                    break;
-
-                var joltageDifference = selected - current;
-
-                switch (joltageDifference)
+                for (int rowIndex = 0; rowIndex < _input.Count; rowIndex++)
                 {
-                    case 1:
-                        oneJoltDifferences++;
-                        break;
-                    case 3:
-                        threeJoltDifferences++;
-                        break;
-                    default:
-                        break;
+                    var width = new char[layoutWidth];
+
+                    for (int columnIndex = 0; columnIndex < layoutWidth; columnIndex++)
+                    {
+                        var currentSeat = _input[rowIndex][columnIndex];
+                        var neighbours = CalculateAdjacentSeats(rowIndex, columnIndex);
+
+                        //If a seat is empty(L) and there are no occupied seats adjacent to it, the seat becomes occupied.
+                        if (currentSeat.Equals('L') && !neighbours.Contains('#'))
+                            width[columnIndex] = '#';
+
+                        //If a seat is occupied(#) and four or more seats adjacent to it are also occupied, the seat becomes empty.
+                        else if (currentSeat.Equals('#')
+                            && neighbours.Where(n => n.Equals('#')).Count() >= 4)
+                            width[columnIndex] = 'L';
+
+                        else
+                            width[columnIndex] = currentSeat;
+                    }
+
+                    newLayout.Add(width);
                 }
 
-                current = selected;
+                previousOccupied = occupiedSeats;
+                occupiedSeats = newLayout.Select(r => r.Count(item => item.Equals('#'))).Sum();
+                _input = newLayout;
             }
 
-            return oneJoltDifferences * threeJoltDifferences;
+            return occupiedSeats;
         }
 
-        private List<int> CalculateAdaptorOptions(int current)
+        internal List<char> CalculateAdjacentSeats(int rowIndex, int columnIndex)
         {
-            return new List<int>
-            {
-                current + 1,
-                current + 2,
-                current + 3
-            };
+            var neighbours = new List<char>();
+
+            // East
+            if (columnIndex < _input[0].Length - 1)
+                neighbours.Add(_input[rowIndex][columnIndex + 1]);
+
+            // NorthEast
+            if (rowIndex > 0 && columnIndex < _input[0].Length - 1)
+                neighbours.Add(_input[rowIndex - 1][columnIndex + 1]);
+
+            // North
+            if (rowIndex > 0)
+                neighbours.Add(_input[rowIndex - 1][columnIndex]);
+
+            // NorthWest
+            if (columnIndex > 0 && rowIndex > 0)
+                neighbours.Add(_input[rowIndex - 1][columnIndex - 1]);
+
+            // West
+            if (columnIndex > 0)
+                neighbours.Add(_input[rowIndex][columnIndex - 1]);
+
+            // SouthWest
+            if (rowIndex < _input.Count - 1 && columnIndex > 0)
+                neighbours.Add(_input[rowIndex + 1][columnIndex - 1]);
+
+            // South
+            if (rowIndex < _input.Count - 1)
+                neighbours.Add(_input[rowIndex + 1][columnIndex]);
+
+            // SouthEast
+            if (rowIndex < _input.Count - 1 && columnIndex < _input[0].Length - 1)
+                neighbours.Add(_input[rowIndex + 1][columnIndex + 1]);
+
+            return neighbours;
         }
 
         internal int Solve2(string inputFileName)
         {
             var parser = new InputParser();
             var input = parser.Parse(inputFileName);
-            input.Sort();
-
-            var deviceJoltage = input[^1] + 3;
-            input.Add(deviceJoltage);
-            input.Insert(0, 0);
-
-            var matchesHigher = new Dictionary<int, List<int>>();
-            // for each entry get matches in dictionary
-            foreach (var item in input)
-            {
-                var options = CalculateAdaptorOptions(item);
-                var matches = options.Where(o => input.Contains(o)).ToList();
-                matchesHigher[item] = matches;
-            }
-
-            var total = TotalWinningCombinations2(input, matchesHigher, 0);
-
-            return total;
-        }
-
-        //private int TotalWinningCombinations1(List<int> input, int current)
-        //{
-        //    var deviceJoltage = input[^1];
-        //    var total = 0;
-
-        //    var options = CalculateAdaptorOptions(current);
-        //    var matches = options.Where(o => input.Contains(o)).ToList();
-
-        //    if (matches.Count == 0)
-        //        return 0;
-
-        //    foreach (var match in matches)
-        //    {
-        //        if (match == deviceJoltage)
-        //        {
-        //            total++;
-        //        }
-
-        //        else
-        //        {
-        //            total += TotalWinningCombinations1(input, match);
-        //        }
-        //    }
-
-        //    return total;
-        //}
-        //}
-
-        private int TotalWinningCombinations2(List<int> input, Dictionary<int, List<int>> matches, int current)
-        {
-            var total = 0;
-
-            while (matches.Any(m => m.Value.Count > 1))
-            {
-                var highest = matches.Where(m => m.Value.Count > 1).Last();
-                var timesMatched = matches.Count(m => m.Value.Contains(highest.Key));
-                total += timesMatched * highest.Value.Count;
-                matches.Remove(highest.Key);
-            }
-
-            return total;
-
-            //var total = 0;
-            //var options = CalculateAdaptorOptions(current);
-            //var matches = options.Where(o => input.Contains(o)).ToList();
-
-            //if (matches.Count == 0)
-            //    return 0;
-
-            //if (matches.Count > 1)
-            //{
-            //    total += matches.Count - 1;
-            //}
-
-            //foreach (var match in matches)
-            //{
-            //    total += TotalWinningCombinations2(input, match);
-            //}
-
-            //return total;
+            
+            return 0;
         }
     }
 }

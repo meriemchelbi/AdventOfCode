@@ -1,4 +1,7 @@
-﻿using Xunit;
+﻿using FluentAssertions;
+using System.Collections.Generic;
+using System.Linq;
+using Xunit;
 
 namespace AdventOfCode.Day11
 {
@@ -11,9 +14,24 @@ namespace AdventOfCode.Day11
 
             var result = parser.Parse("Input");
 
-            Assert.Equal(107, result.Count);
-            Assert.Equal(105, result[0]);
-            Assert.Equal(53, result[^1]);
+            Assert.Equal(90, result.Count);
+        }
+
+        [Theory]
+        [InlineData(0, 0, '.', 'L', 'L')]
+        [InlineData(2, 1, 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L')]
+        [InlineData(9, 8, '.', 'L', '.', 'L', 'L')]
+        [InlineData(1, 9, 'L', 'L', 'L', '.', '.')]
+        public void CalculateAdjacentSeats(int rowIndex, int columnIndex, params char[] neighbours)
+        {
+            InputParser parser = new();
+            Solver solver = new();
+            solver._input = parser.Parse("TestInput");
+            var expected = neighbours;
+
+            var result = solver.CalculateAdjacentSeats(rowIndex, columnIndex);
+
+            result.Should().BeEquivalentTo(expected);
         }
 
         [Fact]
@@ -23,7 +41,7 @@ namespace AdventOfCode.Day11
 
             var result = solver.Solve("Input");
 
-            Assert.Equal(2432, result);
+            Assert.Equal(2113, result);
         }
 
         [Fact]
@@ -34,26 +52,6 @@ namespace AdventOfCode.Day11
             var result = solver.Solve2("Input");
 
             Assert.Equal(1539, result);
-        }
-
-        [Fact]
-        public void Part2_SmallInput()
-        {
-            Solver solver = new();
-
-            var result = solver.Solve2("TestInputSmall");
-
-            Assert.Equal(8, result);
-        }
-
-        [Fact]
-        public void Part2_BigInput()
-        {
-            Solver solver = new();
-
-            var result = solver.Solve2("TestInputBig");
-
-            Assert.Equal(19208, result);
         }
     }
 }
