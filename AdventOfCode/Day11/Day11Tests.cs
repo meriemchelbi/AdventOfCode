@@ -44,6 +44,22 @@ namespace AdventOfCode.Day11
             Assert.Equal(2113, result);
         }
 
+        [Theory]
+        [InlineData(0, 0, '#', '#')]
+        [InlineData(5, 3, '#', 'L', '#', '#')]
+        [InlineData(4, 8, 'L')]
+        public void CalculateVisibleSeats(int rowIndex, int columnIndex, params char[] visible)
+        {
+            InputParser parser = new();
+            Solver solver = new();
+            solver._input = parser.Parse("VisibleInput");
+            var expected = visible;
+
+            var result = solver.CalculateVisibleSeats(rowIndex, columnIndex);
+
+            result.Should().BeEquivalentTo(expected);
+        }
+
         [Fact]
         public void Part2_Result()
         {
@@ -51,7 +67,7 @@ namespace AdventOfCode.Day11
 
             var result = solver.Solve2("Input");
 
-            Assert.Equal(1539, result);
+            Assert.Equal(1865, result);
         }
     }
 }
