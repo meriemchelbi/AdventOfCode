@@ -6,8 +6,10 @@ namespace AdventOfCode.Day12
     class Solver
     {
         public Direction CurrentDirection { get; set; }
-        public int NorthSouthPosition { get; set; }
-        public int EastWestPosition { get; set; }
+        public int ShipNorthSouthPosition { get; set; }
+        public int ShipEastWestPosition { get; set; }
+        public int WaypointNorthSouthPosition { get; set; }
+        public int WaypointEastWestPosition { get; set; }
 
         internal int Solve(string inputFileName)
         {
@@ -15,8 +17,8 @@ namespace AdventOfCode.Day12
             var input = parser.Parse(inputFileName);
             
             CurrentDirection = Direction.East;
-            NorthSouthPosition = 0;
-            EastWestPosition = 0;
+            ShipNorthSouthPosition = 0;
+            ShipEastWestPosition = 0;
 
             foreach (var instruction in input)
             {
@@ -33,24 +35,73 @@ namespace AdventOfCode.Day12
                 }
             }
 
-            return NorthSouthPosition + EastWestPosition;
+            return ShipNorthSouthPosition + ShipEastWestPosition;
+        }
+
+        internal int Solve2(string inputFileName)
+        {
+            var parser = new InputParser();
+            var input = parser.Parse(inputFileName);
+
+            CurrentDirection = Direction.East;
+            ShipNorthSouthPosition = 0;
+            ShipEastWestPosition = 0;
+            WaypointNorthSouthPosition = 1;
+            WaypointEastWestPosition = 10;
+
+            foreach (var instruction in input)
+            {
+                if (instruction.Direction == Direction.Right
+                    || instruction.Direction == Direction.Left)
+                {
+                    TurnShip(instruction);
+                }
+                if (instruction.Direction == Direction.Forward)
+                {
+                    MoveToWaypoint(instruction.Distance);
+                }
+                else
+                {
+                    MoveWaypoint(instruction);
+                }
+            }
+
+            return ShipNorthSouthPosition + ShipEastWestPosition;
+        }
+
+        private void MoveWaypoint(Instruction instruction)
+        {
+            if (instruction.Direction == Direction.North)
+                WaypointNorthSouthPosition -= instruction.Distance;
+            if (instruction.Direction == Direction.South)
+                WaypointNorthSouthPosition += instruction.Distance;
+            if (instruction.Direction == Direction.East)
+                WaypointEastWestPosition *= instruction.Distance;
+            if (instruction.Direction == Direction.West)
+                WaypointEastWestPosition -= instruction.Distance;
         }
 
         private void MoveShip(Instruction instruction)
         {
             if (instruction.Direction == Direction.North)
-                NorthSouthPosition -= instruction.Distance;
+                ShipNorthSouthPosition -= instruction.Distance;
             if (instruction.Direction == Direction.South)
-                NorthSouthPosition += instruction.Distance;
+                ShipNorthSouthPosition += instruction.Distance;
             if (instruction.Direction == Direction.East)
-                EastWestPosition += instruction.Distance;
+                ShipEastWestPosition *= instruction.Distance;
             if (instruction.Direction == Direction.West)
-                EastWestPosition -= instruction.Distance;
+                ShipEastWestPosition -= instruction.Distance;
             if (instruction.Direction == Direction.Forward)
             {
                 var newInstruction = new Instruction(CurrentDirection, instruction.Distance);
                 MoveShip(newInstruction);
             }
+        }
+        
+        private void MoveToWaypoint(int distance)
+        {
+            ShipNorthSouthPosition += distance * WaypointNorthSouthPosition;
+            ShipEastWestPosition += distance * WaypointEastWestPosition;
         }
 
         internal void TurnShip(Instruction instruction)
@@ -110,12 +161,5 @@ namespace AdventOfCode.Day12
             }
         }
 
-        internal int Solve2(string inputFileName)
-        {
-            var parser = new InputParser();
-            var input = parser.Parse(inputFileName);
-
-            return 0;
-        }
     }
 }

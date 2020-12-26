@@ -49,7 +49,8 @@ namespace AdventOfCode.Day12
 
             var result = solver.Solve2("Input");
 
-            Assert.Equal(1865, result);
+            Assert.True(result > 8267);
+            Assert.True(result < 2146001992);
         }
     }
 }
