@@ -5,10 +5,10 @@ namespace AdventOfCode.Day12
 {
     class InputParser
     {
-        public List<char[]> Parse(string fileName)
+        public List<Instruction> Parse(string fileName)
         {
-            var output = new List<char[]>();
-            var path = Path.GetFullPath($"Day11\\{fileName}.txt");
+            var output = new List<Instruction>();
+            var path = Path.GetFullPath($"Day12\\{fileName}.txt");
 
             using (var sr = new StreamReader(path))
             {
@@ -16,8 +16,7 @@ namespace AdventOfCode.Day12
 
                 while ((line = sr.ReadLine()) != null)
                 {
-                    var row = line.ToCharArray();
-                    output.Add(row);
+                    output.Add(new Instruction(line));
                 }
             }
 

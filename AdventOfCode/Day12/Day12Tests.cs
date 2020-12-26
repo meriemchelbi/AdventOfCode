@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using FluentAssertions;
+using Xunit;
 
 namespace AdventOfCode.Day12
 {
@@ -14,6 +15,23 @@ namespace AdventOfCode.Day12
             Assert.Equal(769, result.Count);
         }
 
+        [Theory]
+        [InlineData("R90", Direction.East, Direction.South)]
+        [InlineData("R180", Direction.East, Direction.West)]
+        [InlineData("L180", Direction.East, Direction.West)]
+        [InlineData("L90", Direction.East, Direction.North)]
+        [InlineData("L270", Direction.East, Direction.South)]
+        public void TurnShip(string instructionString, Direction currentDirection, Direction expected)
+        {
+            var solver = new Solver();
+            var instruction = new Instruction(instructionString);
+            solver.CurrentDirection = currentDirection;
+            
+            solver.TurnShip(instruction);
+
+            solver.CurrentDirection.Should().Be(expected);
+        }
+
         [Fact]
         public void Part1_Result()
         {
@@ -21,7 +39,7 @@ namespace AdventOfCode.Day12
 
             var result = solver.Solve("Input");
 
-            Assert.Equal(2113, result);
+            Assert.Equal(1956, result);
         }
 
         [Fact]

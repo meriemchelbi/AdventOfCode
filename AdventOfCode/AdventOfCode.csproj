@@ -7,11 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Day12\Input.txt" />
     <None Remove="Day11\TestInput.txt" />
     <None Remove="Day11\VisibleInput.txt" />
   </ItemGroup>
 	
   <ItemGroup>
+    <Content Include="Day12\Input.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Day11\VisibleInput.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
