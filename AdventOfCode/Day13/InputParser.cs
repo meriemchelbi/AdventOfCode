@@ -1,5 +1,4 @@
-﻿using AdventOfCode.Day12;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 
 namespace AdventOfCode.Day13
