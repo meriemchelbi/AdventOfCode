@@ -35,7 +35,7 @@ namespace AdventOfCode.Day12
                 }
             }
 
-            return ShipNorthSouthPosition + ShipEastWestPosition;
+            return Math.Abs(ShipNorthSouthPosition) + Math.Abs(ShipEastWestPosition);
         }
 
         internal int Solve2(string inputFileName)
@@ -43,10 +43,9 @@ namespace AdventOfCode.Day12
             var parser = new InputParser();
             var input = parser.Parse(inputFileName);
 
-            CurrentDirection = Direction.East;
             ShipNorthSouthPosition = 0;
             ShipEastWestPosition = 0;
-            WaypointNorthSouthPosition = 1;
+            WaypointNorthSouthPosition = -1;
             WaypointEastWestPosition = 10;
 
             foreach (var instruction in input)
@@ -54,9 +53,9 @@ namespace AdventOfCode.Day12
                 if (instruction.Direction == Direction.Right
                     || instruction.Direction == Direction.Left)
                 {
-                    TurnShip(instruction);
+                    RotateWaypoint(instruction);
                 }
-                if (instruction.Direction == Direction.Forward)
+                else if (instruction.Direction == Direction.Forward)
                 {
                     MoveToWaypoint(instruction.Distance);
                 }
@@ -66,42 +65,7 @@ namespace AdventOfCode.Day12
                 }
             }
 
-            return ShipNorthSouthPosition + ShipEastWestPosition;
-        }
-
-        private void MoveWaypoint(Instruction instruction)
-        {
-            if (instruction.Direction == Direction.North)
-                WaypointNorthSouthPosition -= instruction.Distance;
-            if (instruction.Direction == Direction.South)
-                WaypointNorthSouthPosition += instruction.Distance;
-            if (instruction.Direction == Direction.East)
-                WaypointEastWestPosition *= instruction.Distance;
-            if (instruction.Direction == Direction.West)
-                WaypointEastWestPosition -= instruction.Distance;
-        }
-
-        private void MoveShip(Instruction instruction)
-        {
-            if (instruction.Direction == Direction.North)
-                ShipNorthSouthPosition -= instruction.Distance;
-            if (instruction.Direction == Direction.South)
-                ShipNorthSouthPosition += instruction.Distance;
-            if (instruction.Direction == Direction.East)
-                ShipEastWestPosition *= instruction.Distance;
-            if (instruction.Direction == Direction.West)
-                ShipEastWestPosition -= instruction.Distance;
-            if (instruction.Direction == Direction.Forward)
-            {
-                var newInstruction = new Instruction(CurrentDirection, instruction.Distance);
-                MoveShip(newInstruction);
-            }
-        }
-        
-        private void MoveToWaypoint(int distance)
-        {
-            ShipNorthSouthPosition += distance * WaypointNorthSouthPosition;
-            ShipEastWestPosition += distance * WaypointEastWestPosition;
+            return Math.Abs(ShipNorthSouthPosition) + Math.Abs(ShipEastWestPosition);
         }
 
         internal void TurnShip(Instruction instruction)
@@ -160,6 +124,68 @@ namespace AdventOfCode.Day12
                 }
             }
         }
+
+        internal void MoveShip(Instruction instruction)
+        {
+            if (instruction.Direction == Direction.North)
+                ShipNorthSouthPosition -= instruction.Distance;
+            if (instruction.Direction == Direction.South)
+                ShipNorthSouthPosition += instruction.Distance;
+            if (instruction.Direction == Direction.East)
+                ShipEastWestPosition += instruction.Distance;
+            if (instruction.Direction == Direction.West)
+                ShipEastWestPosition -= instruction.Distance;
+            if (instruction.Direction == Direction.Forward)
+            {
+                var newInstruction = new Instruction(CurrentDirection, instruction.Distance);
+                MoveShip(newInstruction);
+            }
+        }
+
+        internal void RotateWaypoint(Instruction instruction)
+        {
+            if (instruction.Distance == 180)
+            {
+                var tempEastWest = WaypointEastWestPosition;
+                WaypointEastWestPosition = - WaypointNorthSouthPosition;
+                WaypointNorthSouthPosition = - tempEastWest;
+            }
+
+            else if (instruction.Distance == 90 && instruction.Direction == Direction.Right
+                || instruction.Distance == 270 && instruction.Direction == Direction.Left)
+            {
+                var tempEastWest = WaypointEastWestPosition;
+                WaypointEastWestPosition = -WaypointNorthSouthPosition;
+                WaypointNorthSouthPosition = tempEastWest;
+            }
+
+            else if (instruction.Distance == 90 && instruction.Direction == Direction.Left
+                || instruction.Distance == 270 && instruction.Direction == Direction.Right)
+            {
+                var tempEastWest = WaypointEastWestPosition;
+                WaypointEastWestPosition = WaypointNorthSouthPosition;
+                WaypointNorthSouthPosition = -tempEastWest;
+            }
+        }
+
+        internal void MoveWaypoint(Instruction instruction)
+        {
+            if (instruction.Direction == Direction.North)
+                WaypointNorthSouthPosition -= instruction.Distance;
+            if (instruction.Direction == Direction.South)
+                WaypointNorthSouthPosition += instruction.Distance;
+            if (instruction.Direction == Direction.East)
+                WaypointEastWestPosition += instruction.Distance;
+            if (instruction.Direction == Direction.West)
+                WaypointEastWestPosition -= instruction.Distance;
+        }
+        
+        internal void MoveToWaypoint(int distance)
+        {
+            ShipNorthSouthPosition += distance * WaypointNorthSouthPosition;
+            ShipEastWestPosition += distance * WaypointEastWestPosition;
+        }
+
 
     }
 }
