@@ -1,6 +1,6 @@
 ﻿using Xunit;
 
-namespace AdventOfCode.Template
+namespace AdventOfCode.Day14
 {
     public class Tests
     {
