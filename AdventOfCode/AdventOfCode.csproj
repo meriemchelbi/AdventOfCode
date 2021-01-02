@@ -5,7 +5,7 @@
 	  <LangVersion>9</LangVersion>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
-	
+  
   <ItemGroup>
     <Content Include="Day13\Input.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -35,6 +35,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Day10\Input.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Template\Input.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Template\TestInput.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Day9\Input.txt">
