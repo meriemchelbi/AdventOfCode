@@ -6,13 +6,15 @@ namespace AdventOfCode.Day13
     public class Day13Tests
     {
         [Fact]
-        public void InputParser_ReturnsList()
+        public void InputParser()
         {
             InputParser parser = new();
 
             var result = parser.Parse("Input");
 
-            Assert.Equal(769, result.Count);
+            result.Should().NotBeNull();
+            result.EarliestDepartureTimestamp.Should().Be(1003240);
+            result.Timetable.Should().NotBeNull();
         }
 
         [Fact]
@@ -22,7 +24,7 @@ namespace AdventOfCode.Day13
 
             var result = solver.Solve("Input");
 
-            Assert.Equal(1956, result);
+            Assert.True(result < 4568);
         }
 
         [Fact]

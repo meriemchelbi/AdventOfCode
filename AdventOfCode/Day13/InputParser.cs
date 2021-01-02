@@ -1,26 +1,23 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace AdventOfCode.Day13
 {
     class InputParser
     {
-        public List<string> Parse(string fileName)
+        public Input Parse(string fileName)
         {
-            var output = new List<string>();
             var path = Path.GetFullPath($"Day13\\{fileName}.txt");
+            var input = File.ReadAllLines(path);
 
-            using (var sr = new StreamReader(path))
+            return new Input
             {
-                string line;
-
-                while ((line = sr.ReadLine()) != null)
-                {
-                    output.Add(line);
-                }
-            }
-
-            return output;
+                EarliestDepartureTimestamp = int.Parse(input[0]),
+                Timetable = input[1].Split(',')
+            };
         }
+
+        
     }
 }
