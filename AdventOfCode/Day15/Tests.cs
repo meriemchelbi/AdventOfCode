@@ -4,24 +4,22 @@ namespace AdventOfCode.Day15
 {
     public class Tests
     {
-        [Fact]
-        public void InputParser()
-        {
-            InputParser parser = new();
-
-            var result = parser.Parse();
-
-            Assert.Equal(323, result.Count);
-        }
-
-        [Fact]
-        public void Part1_Result()
+        [Theory]
+        [InlineData(436, 0, 3, 6)]
+        [InlineData(1, 1, 3, 2)]
+        [InlineData(10, 2, 1, 3)]
+        [InlineData(27, 1, 2, 3)]
+        [InlineData(78, 2, 3, 1)]
+        [InlineData(438, 3, 2, 1)]
+        [InlineData(1836, 3, 1, 2)]
+        [InlineData(1259, 15, 5, 1, 4, 7, 0)]
+        public void Part1_Result(int expected, params int[] input)
         {
             Solver solver = new();
 
-            var result = solver.Solve(3, 1);
+            var result = solver.Solve(2020, input);
 
-            Assert.Equal(262, result);
+            Assert.Equal(expected, result);
         }
 
         [Fact]
