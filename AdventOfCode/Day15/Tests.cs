@@ -22,14 +22,22 @@ namespace AdventOfCode.Day15
             Assert.Equal(expected, result);
         }
 
-        [Fact]
-        public void Part2_Result()
+        [Theory]
+        [InlineData(175594, 0, 3, 6)]
+        [InlineData(2578, 1, 3, 2)]
+        [InlineData(3544142, 2, 1, 3)]
+        [InlineData(261214, 1, 2, 3)]
+        [InlineData(6895259, 2, 3, 1)]
+        [InlineData(18, 3, 2, 1)]
+        [InlineData(362, 3, 1, 2)]
+        [InlineData(689, 15, 5, 1, 4, 7, 0)]
+        public void Part2_Result(int expected, params int[] input)
         {
             Solver solver = new();
 
-            var result = solver.Solve2();
+            var result = solver.Solve(30000000, input);
 
-            Assert.Equal(2698900776, result);
+            Assert.Equal(expected, result);
         }
     }
 }

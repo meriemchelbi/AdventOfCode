@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace AdventOfCode.Day15
@@ -7,7 +8,7 @@ namespace AdventOfCode.Day15
     {
         private Dictionary<int, List<int>> _memory;
 
-        internal int Solve(uint targetIteration, params int[] input)
+        internal int Solve(int targetIteration, params int[] input)
         {
             // build dictionary with each number and its corresponding index
             var inputList = input.ToList();
@@ -40,12 +41,6 @@ namespace AdventOfCode.Day15
 
             else
                 _memory.Add(number, new List<int> { round });
-        }
-
-        internal uint Solve2()
-        {
-
-            return 0;
         }
     }
 }
