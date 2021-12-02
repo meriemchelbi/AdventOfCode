@@ -9,10 +9,12 @@ namespace AdventOfCode.Day1
 {
     public class D1Tests
     {
+        private readonly ToListParser _parser;
         private readonly Solver _sut;
 
         public D1Tests()
         {
+            _parser = new ToListParser();
             _sut = new Solver();
         }
 
@@ -29,8 +31,7 @@ namespace AdventOfCode.Day1
         [Fact]
         public void SolvePart1()
         {
-            var parser = new ToListParser();
-            var input = parser.ParseToListOfInt("Day1\\Input.txt");
+            var input = _parser.ParseToListOfInt("Day1\\Input.txt");
 
             var result = _sut.CalculateMeasurementIncreases(input);
 
@@ -50,8 +51,7 @@ namespace AdventOfCode.Day1
         [Fact]
         public void SolvePart2()
         {
-            var parser = new ToListParser();
-            var input = parser.ParseToListOfInt("Day1\\Input.txt");
+            var input = _parser.ParseToListOfInt("Day1\\Input.txt");
 
             var result = _sut.CalculateSlidingWindowIncreases(input);
 
