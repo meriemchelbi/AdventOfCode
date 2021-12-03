@@ -7,14 +7,18 @@ namespace AdventOfCode.Day3
 {
     public class Solver
     {
-        // key = position of bit, value = number of 1s
-        private Dictionary<int, int> _countOfBits = new Dictionary<int, int>();
+        // key = position of bit, value = most common value for position
+        private Dictionary<int, char> _mostCommon = new Dictionary<int, char>();
 
         public int SolvePart1(List<string> input)
         {
-            ConstructCountOfBits(input);
+            for (int i = 0; i < input[0].Length; i++)
+            {
+                var mostCommonValue = FindMostCommon(i, input);
+                _mostCommon.Add(i, mostCommonValue);
+            }
 
-            string gammaRateBinary = CalculateGammaRate(input.Count);
+            var gammaRateBinary = CalculateGammaRate();
             var gammaRateDecimal = Convert.ToInt32(gammaRateBinary, 2);
 
             string epsilonRateBinary = CalculateEpsilonRate(gammaRateBinary);
@@ -25,45 +29,19 @@ namespace AdventOfCode.Day3
 
         public int SolvePart2(List<string> input)
         {
-            int oxygenRating = CalculateOxygenRating(input);
+            int oxygenRating = CalculateRating(input, true);
 
-            int co2Rating = CalculateCo2Rating(input);
+            int co2Rating = CalculateRating(input, false);
 
             return oxygenRating * co2Rating;
         }
 
-        private void ConstructCountOfBits(List<string> input)
+        private string CalculateGammaRate()
         {
-            var countOfBits = new Dictionary<int, int>();
-            for (int i = 0; i < input[0].Length; i++)
-            {
-                countOfBits.Add(i, 0);
-            }
-
-            foreach (var bitfield in input)
-            {
-                for (int i = 0; i < bitfield.Length; i++)
-                {
-                    if (bitfield[i].Equals('1'))
-                        countOfBits[i] += 1;
-                }
-            }
-
-            _countOfBits = countOfBits;
-        }
-
-        private string CalculateGammaRate(int countOfNumbers)
-        {
-            var minimumForMajority = countOfNumbers / 2;
             var gammaRate = new StringBuilder();
 
-            foreach (var count in _countOfBits)
-            {
-                if (count.Value >= minimumForMajority)
-                    gammaRate.Append("1");
-                else
-                    gammaRate.Append("0");
-            }
+            foreach (var element in _mostCommon)
+                gammaRate.Append(element.Value);
 
             return gammaRate.ToString();
         }
@@ -83,31 +61,17 @@ namespace AdventOfCode.Day3
             return epsilonRate.ToString();
         }
 
-        private int CalculateOxygenRating(List<string> input)
+        private int CalculateRating(List<string> input, bool isOxygen)
         {
             var numberLength = input[0].Length;
             var shortList = new List<string>(input);
 
             for (int i = 0; i < numberLength; i++)
             {
-                // find most common element in position
-                char mostCommon;
-                var countOf1 = 0;
-                foreach (var item in shortList)
-                {
-                    if (item[i].Equals('1'))
-                        countOf1++;
-                }
+                var mostCommon = FindMostCommon(i, shortList);
 
-                var majorityCount = Math.Ceiling((double)shortList.Count/2);
-                if (countOf1 >= majorityCount)
-                {
-                    mostCommon = '1';
-                }
-                else mostCommon = '0';
-
-                // filter shortlist to exclude all other elements
-                shortList = shortList.Where(element => element[i].Equals(mostCommon)).ToList();
+                shortList = shortList.Where(element => element[i].Equals(mostCommon) == isOxygen)
+                    .ToList();
                 if (shortList.Count == 1)
                     break;
             }
@@ -115,36 +79,21 @@ namespace AdventOfCode.Day3
             return Convert.ToInt32(shortList[0], 2);
         }
 
-        private int CalculateCo2Rating(List<string> input)
+        private char FindMostCommon(int position, List<string> input)
         {
-            var numberLength = input[0].Length;
-            var shortList = new List<string>(input);
+            var countOf1 = 0;
 
-            for (int i = 0; i < numberLength; i++)
+            foreach (var item in input)
             {
-                // find least common element in position
-                char mostCommon;
-                var countOf1 = 0;
-                foreach (var item in shortList)
-                {
-                    if (item[i].Equals('1'))
-                        countOf1++;
-                }
-
-                var majorityCount = Math.Ceiling((double)shortList.Count/2);
-                if (countOf1 >= majorityCount)
-                {
-                    mostCommon = '1';
-                }
-                else mostCommon = '0';
-
-                // filter shortlist to exclude all other elements
-                shortList = shortList.Where(element => !element[i].Equals(mostCommon)).ToList();
-                if (shortList.Count == 1)
-                    break;
+                if (item[position].Equals('1'))
+                    countOf1++;
             }
 
-            return Convert.ToInt32(shortList[0], 2);
+            var majorityCount = Math.Ceiling((double)input.Count / 2);
+            if (countOf1 >= majorityCount)
+                return '1';
+            
+            return '0';
         }
     }
 }
