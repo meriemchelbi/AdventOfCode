@@ -27,22 +27,24 @@ namespace AdventOfCode.Day5
                         End = (int.Parse(coordinates[^2].ToString()), int.Parse(coordinates[^1].ToString()))
                     };
 
-                    if (newLine.Start.Item1 == newLine.End.Item1)
-                    {
+                    int x1 = newLine.Start.Item1;
+                    int x2 = newLine.End.Item1;
+                    int y1 = newLine.Start.Item2;
+                    int y2 = newLine.End.Item2;
+
+                    if (x1 == x2)
                         newLine.IsVertical = true;
-                        lines.Add(newLine);
-                    }
 
-                    else if (newLine.Start.Item2 == newLine.End.Item2)
-                    {
+                    else if (y1 == y2)
                         newLine.IsHorizontal = true;
-                        lines.Add(newLine);
-                    }
 
-                    else
-                    {
-                        lines.Add(newLine);
-                    }
+                    else if (x2 - x1 == y2 - y1)
+                        newLine.IsUpwardDiagonal = true;
+
+                    else if (x2 - x1 == -(y2 - y1))
+                        newLine.IsDownwardDiagonal = true;
+
+                    lines.Add(newLine);
                 }
             }
 

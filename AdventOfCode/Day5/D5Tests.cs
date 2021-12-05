@@ -29,6 +29,8 @@ namespace AdventOfCode.Day5
             input[9].IsVertical.Should().BeFalse();
             input[0].IsHorizontal.Should().BeTrue();
             input[3].IsVertical.Should().BeTrue();
+            input[1].IsDownwardDiagonal.Should().BeTrue();
+            input[5].IsUpwardDiagonal.Should().BeTrue();
         }
 
         [Fact]
@@ -55,7 +57,7 @@ namespace AdventOfCode.Day5
         {
             var input = _parser.ParseInput("Day5\\TestInput.txt");
 
-            var result = _sut.SolvePart1(input);
+            var result = _sut.SolvePart2(input);
 
             result.Should().Be(12);
         }
@@ -77,7 +79,7 @@ namespace AdventOfCode.Day5
 
             var result = _sut.SolvePart2(input);
 
-            result.Should().Be(0);
+            result.Should().Be(22083);
         }
     }
 }

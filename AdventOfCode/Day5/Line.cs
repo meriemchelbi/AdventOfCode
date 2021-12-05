@@ -8,6 +8,8 @@ namespace AdventOfCode.Day5
         public (int, int) End { get; set; }
         public bool IsHorizontal { get; set; }
         public bool IsVertical { get; set; }
+        public bool IsUpwardDiagonal { get; set; }
+        public bool IsDownwardDiagonal { get; set; }
         public List<(int,int)> Points { get; set; }
 
         public Line()
