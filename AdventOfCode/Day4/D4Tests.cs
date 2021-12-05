@@ -43,7 +43,11 @@ namespace AdventOfCode.Day4
         [Fact]
         public void SolvePart1()
         {
-            throw new NotImplementedException();
+            var input = _parser.ParseInput("Day4\\Input.txt");
+
+            var result = _sut.SolvePart1(input);
+
+            result.Should().Be(38913);
         }
 
         [Fact]

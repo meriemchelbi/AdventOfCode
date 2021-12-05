@@ -8,33 +8,7 @@ namespace AdventOfCode.Day4
     {
         public int SolvePart1(BingoGame input)
         {
-            var lastNumberCalled = 0;
-            (int, bool)[][] winningBoard = null;
-
-            foreach (var number in input.CallingNumbers)
-            {
-                lastNumberCalled = number;
-
-                foreach (var board in input.Boards)
-                {
-                    for (int j = 0; j < 5; j++)
-                    {
-                        for (int i = 0; i < 5; i++)
-                        {
-                            if (board[j][i].Item1 == lastNumberCalled)
-                            {
-                                board[j][i].Item2 = true;
-                                if (IsWinningBoard(board, i, j))
-                                {
-                                    winningBoard = board;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    continue;
-                }
-            }
+            (int, bool)[][] winningBoard = FindWinningBoard(input, out var lastNumberCalled);
 
             var sumOfUnmarked = 0;
 
@@ -49,9 +23,41 @@ namespace AdventOfCode.Day4
             return sumOfUnmarked * lastNumberCalled;
         }
 
+        private (int, bool)[][] FindWinningBoard(BingoGame input, out int lastNumberCalled)
+        {
+            lastNumberCalled = 0;
+
+            foreach (var number in input.CallingNumbers)
+            {
+                lastNumberCalled = number;
+
+                foreach (var board in input.Boards)
+                {
+                    for (int rowIndex = 0; rowIndex < 5; rowIndex++)
+                    {
+                        for (int columnIndex = 0; columnIndex < 5; columnIndex++)
+                        {
+                            if (board[rowIndex][columnIndex].Item1 == lastNumberCalled)
+                            {
+                                board[rowIndex][columnIndex].Item2 = true;
+                                if (IsWinningBoard(board, rowIndex, columnIndex))
+                                {
+                                    return board;
+                                }
+                            }
+                        }
+                    }
+                    continue;
+                }
+            }
+
+            return default;
+        }
+
         private bool IsWinningBoard((int, bool)[][] board, int rowIndex, int columnIndex)
         {
-            if (!board[rowIndex].Any(n => n.Item2 is false))
+            var rowElements = board[rowIndex];
+            if (!(rowElements.Any(n => n.Item2 is false)))
                 return true;
 
             var columnTrueCount = 0;
