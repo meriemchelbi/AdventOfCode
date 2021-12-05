@@ -9,17 +9,26 @@ namespace AdventOfCode.Day4
         public int SolvePart1(BingoGame input)
         {
             (int, bool)[][] winningBoard = FindWinningBoard(input, out var lastNumberCalled);
+            int sumOfUnmarked = CalculateSumOfUnmarked(winningBoard);
+            return sumOfUnmarked * lastNumberCalled;
+        }
 
-            var sumOfUnmarked = 0;
 
-            foreach (var row in winningBoard)
+        public int SolvePart2(BingoGame input)
+        {
+            var remainingLosingBoards = input.Boards.Count;
+            (int, bool)[][] lastBoard = null;
+            var lastNumberCalled = 0;
+
+            while (remainingLosingBoards > 0)
             {
-                foreach (var number in row)
-                {
-                    if (number.Item2 is false)
-                        sumOfUnmarked += number.Item1;
-                }
+                lastBoard = FindWinningBoard(input, out lastNumberCalled);
+                input.Boards.Remove(lastBoard);
+                remainingLosingBoards--;
             }
+
+            var sumOfUnmarked = CalculateSumOfUnmarked(lastBoard);
+
             return sumOfUnmarked * lastNumberCalled;
         }
 
@@ -73,9 +82,20 @@ namespace AdventOfCode.Day4
             return false;
         }
 
-        public int SolvePart2(List<string> input)
+        private static int CalculateSumOfUnmarked((int, bool)[][] board)
         {
-            throw new NotImplementedException();
+            var sumOfUnmarked = 0;
+
+            foreach (var row in board)
+            {
+                foreach (var number in row)
+                {
+                    if (number.Item2 is false)
+                        sumOfUnmarked += number.Item1;
+                }
+            }
+
+            return sumOfUnmarked;
         }
     }
 }

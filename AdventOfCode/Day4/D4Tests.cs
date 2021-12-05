@@ -37,7 +37,11 @@ namespace AdventOfCode.Day4
         [Fact]
         public void Part2TestCase()
         {
-            throw new NotImplementedException();
+            var input = _parser.ParseInput("Day4\\TestInput.txt");
+
+            var result = _sut.SolvePart2(input);
+
+            result.Should().Be(1924);
         }
 
         [Fact]
@@ -53,7 +57,11 @@ namespace AdventOfCode.Day4
         [Fact]
         public void SolvePart2()
         {
-            throw new NotImplementedException();
+            var input = _parser.ParseInput("Day4\\Input.txt");
+
+            var result = _sut.SolvePart2(input);
+
+            result.Should().Be(16836);
         }
     }
 }
