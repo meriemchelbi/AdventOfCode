@@ -27,56 +27,26 @@ namespace AdventOfCode.Day5
                         End = (int.Parse(coordinates[^2].ToString()), int.Parse(coordinates[^1].ToString()))
                     };
 
-                    CalculateLineProperties(newLine);
+                    if (newLine.Start.Item1 == newLine.End.Item1)
+                    {
+                        newLine.IsVertical = true;
+                        lines.Add(newLine);
+                    }
 
-                    lines.Add(newLine);
+                    else if (newLine.Start.Item2 == newLine.End.Item2)
+                    {
+                        newLine.IsHorizontal = true;
+                        lines.Add(newLine);
+                    }
+
+                    else
+                    {
+                        lines.Add(newLine);
+                    }
                 }
             }
 
             return lines;
-        }
-
-        public void CalculateLineProperties(Line line)
-        {
-            if (line.Start.Item1 == line.End.Item1)
-            {
-                line.IsHorizontalOrVertical = true;
-                
-                var pointsRange = line.Start.Item2 - line.End.Item2;
-                var upwards = pointsRange > 0 ? false : true;
-                
-                for (int i = 0; i < Math.Abs(pointsRange) + 1; i++)
-                {
-                    (int, int) point;
-
-                    if (upwards)
-                        point = (line.Start.Item1, line.Start.Item2 + i);
-                    else
-                        point = (line.Start.Item1, line.Start.Item2 - i);
-
-                    line.Points.Add(point);
-                }
-            }
-
-            if (line.Start.Item2 == line.End.Item2)
-            {
-                line.IsHorizontalOrVertical = true;
-                
-                var pointsRange = line.Start.Item1 - line.End.Item1;
-                var leftwards = pointsRange > 0 ? true : false;
-
-                for (int i = 0; i < Math.Abs(pointsRange) + 1; i++)
-                {
-                    (int, int) point;
-
-                    if (leftwards)
-                        point = (line.Start.Item1 - i, line.Start.Item2);
-                    else
-                        point = (line.Start.Item1 + i, line.Start.Item2);
-
-                    line.Points.Add(point);
-                }
-            }
         }
     }
 }
