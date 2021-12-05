@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
+using System.Linq;
 
 namespace AdventOfCode.Day5
 {
@@ -18,10 +18,13 @@ namespace AdventOfCode.Day5
 
                 while ((line = sr.ReadLine()) != null)
                 {
+                    var split = line.Split(' ').ToList();
+                    var coordinates = split.SelectMany(s => s.Split(',')).ToArray();
+                    
                     var newLine = new Line
                     {
-                        Start = (int.Parse(line[0].ToString()), int.Parse(line[2].ToString())),
-                        End = (int.Parse(line[^3].ToString()), int.Parse(line[^1].ToString()))
+                        Start = (int.Parse(coordinates[0]), int.Parse(coordinates[1].ToString())),
+                        End = (int.Parse(coordinates[^2].ToString()), int.Parse(coordinates[^1].ToString()))
                     };
 
                     CalculateLineProperties(newLine);
@@ -69,7 +72,7 @@ namespace AdventOfCode.Day5
                     if (leftwards)
                         point = (line.Start.Item1 - i, line.Start.Item2);
                     else
-                        point = (line.Start.Item1 + 1, line.Start.Item2);
+                        point = (line.Start.Item1 + i, line.Start.Item2);
 
                     line.Points.Add(point);
                 }

@@ -34,12 +34,20 @@ namespace AdventOfCode.Day5
             input[2].IsHorizontalOrVertical.Should().BeTrue();
             var points2 = new List<(int, int)> { (9,4), (8,4), (7,4), (6, 4), (5, 4), (4, 4), (3, 4) };
             input[2].Points.Should().BeEquivalentTo(points2);
+            
+            input[0].IsHorizontalOrVertical.Should().BeTrue();
+            var points0 = new List<(int, int)> { (0,9), (1,9), (2, 9), (3, 9), (4, 9), (5, 9) };
+            input[0].Points.Should().BeEquivalentTo(points0);
         }
 
         [Fact]
         public void Part1TestCase()
         {
-            throw new NotImplementedException();
+            var input = _parser.ParseInput("Day5\\TestInput.txt");
+
+            var result = _sut.SolvePart1(input);
+
+            result.Should().Be(5);
         }
 
         [Fact]
@@ -51,7 +59,11 @@ namespace AdventOfCode.Day5
         [Fact]
         public void SolvePart1()
         {
-            throw new NotImplementedException();
+            var input = _parser.ParseInput("Day5\\Input.txt");
+
+            var result = _sut.SolvePart1(input);
+
+            result.Should().Be(0);
         }
 
         [Fact]

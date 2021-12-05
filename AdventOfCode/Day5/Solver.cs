@@ -1,15 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace AdventOfCode.Day5
 {
     public class Solver
     {
-        public int SolvePart1(List<string> input)
+        public int SolvePart1(List<Line> input)
         {
-            throw new NotImplementedException();
+            var pointsCount = new Dictionary<(int, int), int>();
+
+            foreach (var line in input)
+            {
+                foreach (var point in line.Points)
+                {
+                    var success = pointsCount.TryAdd(point, 1);
+                    
+                    if (!success)
+                        pointsCount[point] += 1;
+                }
+            }
+            
+            return pointsCount.Where(p => p.Value >= 2).Count();
         }
 
         public int SolvePart2(List<string> input)
