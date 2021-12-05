@@ -1,7 +1,5 @@
-﻿using AdventOfCode.InputParsers;
-using FluentAssertions;
+﻿using FluentAssertions;
 using System;
-using System.Collections.Generic;
 using Xunit;
 
 namespace AdventOfCode.Day4
@@ -29,7 +27,11 @@ namespace AdventOfCode.Day4
         [Fact]
         public void Part1TestCase()
         {
-            throw new NotImplementedException();
+            var input = _parser.ParseInput("Day4\\TestInput.txt");
+
+            var result = _sut.SolvePart1(input);
+
+            result.Should().Be(4512);
         }
 
         [Fact]
