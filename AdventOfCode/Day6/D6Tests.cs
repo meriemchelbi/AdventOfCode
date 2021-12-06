@@ -20,7 +20,11 @@ namespace AdventOfCode.Day6
         [Fact]
         public void Part1TestCase()
         {
-            throw new NotImplementedException();
+            var input = new List<int> { 3, 4, 3, 1, 2 };
+
+            var result = _sut.SolvePart1(input);
+
+            result.Should().Be(5934);
         }
 
         [Fact]
@@ -32,7 +36,11 @@ namespace AdventOfCode.Day6
         [Fact]
         public void SolvePart1()
         {
-            throw new NotImplementedException();
+            var input = _parser.ParseToListOfIntFromCsv("Day6\\Input.txt");
+
+            var result = _sut.SolvePart1(input);
+
+            result.Should().Be(0);
         }
 
         [Fact]
