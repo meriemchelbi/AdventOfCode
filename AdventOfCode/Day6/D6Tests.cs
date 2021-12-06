@@ -17,20 +17,26 @@ namespace AdventOfCode.Day6
             _sut = new Solver();
         }
 
-        [Fact]
-        public void Part1TestCase()
+        [Theory]
+        [InlineData(18, 26)]
+        [InlineData(80, 5934)]
+        public void Part1TestCase(int noOfDays, int expectedFish)
         {
             var input = new List<int> { 3, 4, 3, 1, 2 };
 
-            var result = _sut.SolvePart1(input);
+            var result = _sut.SolvePart1(input, noOfDays);
 
-            result.Should().Be(5934);
+            result.Should().Be(expectedFish);
         }
 
         [Fact]
         public void Part2TestCase()
         {
-            throw new NotImplementedException();
+            var input = new List<int> { 3, 4, 3, 1, 2 };
+
+            var result = _sut.SolvePart2(input, 256);
+
+            result.Should().Be(26984457539);
         }
 
         [Fact]
@@ -38,15 +44,19 @@ namespace AdventOfCode.Day6
         {
             var input = _parser.ParseToListOfIntFromCsv("Day6\\Input.txt");
 
-            var result = _sut.SolvePart1(input);
+            var result = _sut.SolvePart1(input, 80);
 
-            result.Should().Be(0);
+            result.Should().Be(354564);
         }
 
         [Fact]
         public void SolvePart2()
         {
-            throw new NotImplementedException();
+            var input = _parser.ParseToListOfIntFromCsv("Day6\\Input.txt");
+
+            var result = _sut.SolvePart2(input, 256);
+
+            result.Should().Be(1609058859115);
         }
     }
 }
