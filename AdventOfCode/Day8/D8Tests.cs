@@ -3,14 +3,14 @@ using FluentAssertions;
 using System.Collections.Generic;
 using Xunit;
 
-namespace AdventOfCode.Day7
+namespace AdventOfCode.Day8
 {
-    public class D7Tests
+    public class D8Tests
     {
         private readonly ToListParser _parser;
         private readonly Solver _sut;
 
-        public D7Tests()
+        public D8Tests()
         {
             _parser = new ToListParser();
             _sut = new Solver();
@@ -39,7 +39,7 @@ namespace AdventOfCode.Day7
         [Fact]
         public void SolvePart1()
         {
-            var input = _parser.ParseToListOfIntFromCsv("Day7\\Input.txt");
+            var input = _parser.ParseToListOfIntFromCsv("Day8\\Input.txt");
 
             var result = _sut.SolvePart1(input);
 
@@ -49,7 +49,7 @@ namespace AdventOfCode.Day7
         [Fact]
         public void SolvePart2()
         {
-            var input = _parser.ParseToListOfIntFromCsv("Day7\\Input.txt");
+            var input = _parser.ParseToListOfIntFromCsv("Day8\\Input.txt");
 
             var result = _sut.SolvePart2(input);
 
