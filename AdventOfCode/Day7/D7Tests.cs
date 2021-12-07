@@ -20,25 +20,41 @@ namespace AdventOfCode.Day7
         [Fact]
         public void Part1TestCase()
         {
-            throw new NotImplementedException();
+            var input = new List<int> { 16, 1, 2, 0, 4, 2, 7, 1, 2, 14 };
+
+            var result = _sut.SolvePart1(input);
+
+            result.Should().Be(37);
         }
 
         [Fact]
         public void Part2TestCase()
         {
-            throw new NotImplementedException();
+            var input = new List<int> { 16, 1, 2, 0, 4, 2, 7, 1, 2, 14 };
+
+            var result = _sut.SolvePart2(input);
+
+            result.Should().Be(168);
         }
 
         [Fact]
         public void SolvePart1()
         {
-            throw new NotImplementedException();
+            var input = _parser.ParseToListOfIntFromCsv("Day7\\Input.txt");
+
+            var result = _sut.SolvePart1(input);
+
+            result.Should().Be(326132);
         }
 
         [Fact]
         public void SolvePart2()
         {
-            throw new NotImplementedException();
+            var input = _parser.ParseToListOfIntFromCsv("Day7\\Input.txt");
+
+            var result = _sut.SolvePart2(input);
+
+            result.Should().Be(0);
         }
     }
 }
