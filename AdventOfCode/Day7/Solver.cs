@@ -58,9 +58,9 @@ namespace AdventOfCode.Day7
                         var fuel = GetExponentialFuelConsumption(fuelDifference);
                         fuelExpenditure += fuel * positionsCount[position];
                     }
-
-                    fuelExpenditures.Add(fuelExpenditure);
                 }
+
+                fuelExpenditures.Add(fuelExpenditure);
             }
 
             return fuelExpenditures.OrderBy(f => f).First();
@@ -71,7 +71,7 @@ namespace AdventOfCode.Day7
         {
             int sum = 0;
 
-            for (int i = 1; i < value; i++)
+            for (int i = 1; i < value + 1; i++)
             {
                 sum += i;
             }

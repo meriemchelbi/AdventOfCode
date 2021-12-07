@@ -54,7 +54,7 @@ namespace AdventOfCode.Day7
 
             var result = _sut.SolvePart2(input);
 
-            result.Should().Be(0);
+            result.Should().Be(88612508);
         }
     }
 }
