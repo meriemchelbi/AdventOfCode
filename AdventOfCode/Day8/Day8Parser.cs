@@ -27,5 +27,28 @@ namespace AdventOfCode.Day8
 
             return input;
         }
+        
+        public List<(string[], string[])> ParsePart2(string inputPath)
+        {
+            var input = new List<(string[], string[])>();
+
+            var absolutePath = Path.GetFullPath(inputPath);
+
+            using (var sr = new StreamReader(absolutePath))
+            {
+                string line;
+
+                while ((line = sr.ReadLine()) != null)
+                {
+                    var split = line.Split('|');
+                    var signalPattern = split[0].Trim();
+                    var output = split[^1].Trim();
+                    
+                    input.Add((signalPattern.Split(' '), output.Split(' ')));
+                }
+            }
+
+            return input;
+        }
     }
 }

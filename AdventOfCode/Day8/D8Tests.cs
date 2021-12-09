@@ -27,13 +27,26 @@ namespace AdventOfCode.Day8
         }
 
         [Fact]
+        public void Part2SimpleTest()
+        {
+            var patterns = new string[] { "acedgfb", "cdfbe", "gcdfa", "fbcad", "dab", "cefabd", "cdfgeb", "eafb", "cagedb", "ab" };
+            var outputs = new string[] { "cdfeb", "fcadb", "cdfeb", "cdbaf" };
+
+            var input = new List<(string[], string[])> { (patterns, outputs) };
+
+            var result = _sut.SolvePart2(input);
+
+            result.Should().Be(5353);
+        }
+
+        [Fact]
         public void Part2TestCase()
         {
-            //var input = new List<int> { 16, 1, 2, 0, 4, 2, 7, 1, 2, 14 };
+            var input = _parser.ParsePart2("Day8\\TestInput.txt");
 
-            //var result = _sut.SolvePart2(input);
+            var result = _sut.SolvePart2(input);
 
-            //result.Should().Be(168);
+            result.Should().Be(61229);
         }
 
         [Fact]
@@ -49,11 +62,11 @@ namespace AdventOfCode.Day8
         [Fact]
         public void SolvePart2()
         {
-            //var input = _parser.ParseToListOfIntFromCsv("Day8\\Input.txt");
+            var input = _parser.ParsePart2("Day8\\Input.txt");
 
-            //var result = _sut.SolvePart2(input);
+            var result = _sut.SolvePart2(input);
 
-            //result.Should().Be(88612508);
+            result.Should().Be(0);
         }
     }
 }
