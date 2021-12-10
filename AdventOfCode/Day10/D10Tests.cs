@@ -17,6 +17,20 @@ namespace AdventOfCode.Day10
             _sut = new Solver();
         }
 
+        [Theory]
+        [InlineData("{([(<{}[<>[]}>{[]{[(<()>", '}')]
+        [InlineData("[[<[([]))<([[{}[[()]]]", ')')]
+        [InlineData("[{[{({}]{}}([{[{{{}}([]", ']')]
+        [InlineData("[<(<(<(<{}))><([]([]()", ')')]
+        [InlineData("<{([([[(<>()){}]>(<<{{", '>')]
+        [InlineData("[({(<(())[]>[[{[]{<()<>>", '>')]
+        public void GetFirstIllegalChar(string input, char expected)
+        {
+            var result = _sut.GetFirstIllegalChar(input);
+
+            result.Should().Be(expected);
+        }
+
         [Fact]
         public void Part1TestCase()
         {
@@ -44,7 +58,7 @@ namespace AdventOfCode.Day10
 
             var result = _sut.SolvePart1(input);
 
-            result.Should().Be(0);
+            result.Should().Be(316851);
         }
 
         [Fact]
