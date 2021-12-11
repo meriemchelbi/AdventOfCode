@@ -18,14 +18,16 @@ namespace AdventOfCode.Day11
             _sut = new Solver();
         }
 
-        [Fact]
-        public void CalculatesCorrectNumberOfMeasurementIncreases()
+        [Theory]
+        [InlineData("Day11\\TestInput.txt", 100, 1656)]
+        [InlineData("Day11\\SimpleTestInput.txt", 2, 9)]
+        public void TestPart1(string inputPath, int noOfSteps, int expected)
         {
-            var input = _parser.ParseToIntJagged("Day11\\TestInput.txt");
+            var input = _parser.ParseToIntJagged(inputPath);
 
-            var result = _sut.SolvePart1(input);
+            var result = _sut.SolvePart1(input, noOfSteps);
 
-            result.Should().Be(1656);
+            result.Should().Be(expected);
         }
 
         [Fact]
@@ -33,13 +35,13 @@ namespace AdventOfCode.Day11
         {
             var input = _parser.ParseToIntJagged("Day11\\Input.txt");
 
-            var result = _sut.SolvePart1(input);
+            var result = _sut.SolvePart1(input, 100);
 
-            result.Should().Be(0);
+            result.Should().Be(1601);
         }
 
         [Fact]
-        public void CalculatesCorrectNumberOfSlidingWindowIncreases()
+        public void TestPart2()
         {
             var input = _parser.ParseToIntJagged("Day11\\TestInput.txt");
 
