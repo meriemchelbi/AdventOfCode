@@ -30,6 +30,19 @@ namespace AdventOfCode.Day10
 
             result.Should().Be(expected);
         }
+        
+        [Theory]
+        [InlineData("[({(<(())[]>[[{[]{<()<>>", "}}]])})]")]
+        [InlineData("[(()[<>])]({[<{<<[]>>(", ")}>]})")]
+        [InlineData("(((({<>}<{<{<>}{[]{[]{}", "}}>}>))))")]
+        [InlineData("{<[[]]>}<{[{[{[]{()[[[]", "]]}}]}]}>")]
+        [InlineData("<{([{{}}[<[[[<>{}]]]>[]]", "])}>")]
+        public void CompleteLine(string input, string expected)
+        {
+            var result = _sut.CompleteLine(input);
+
+            result.Should().Be(expected);
+        }
 
         [Fact]
         public void Part1TestCase()
@@ -48,7 +61,7 @@ namespace AdventOfCode.Day10
 
             var result = _sut.SolvePart2(input);
 
-            result.Should().Be(0);
+            result.Should().Be(288957);
         }
 
         [Fact]
@@ -68,7 +81,9 @@ namespace AdventOfCode.Day10
 
             var result = _sut.SolvePart2(input);
 
-            result.Should().Be(0);
+            result.Should().BeGreaterThan(45691823);
+            result.Should().BeGreaterThan(63101831);
+            result.Should().BeLessThan(2288035482);
         }
     }
 }

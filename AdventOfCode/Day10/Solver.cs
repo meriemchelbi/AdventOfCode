@@ -8,7 +8,8 @@ namespace AdventOfCode.Day10
     public class Solver
     {
         private readonly Dictionary<char, char> _openingClosing;
-        private readonly Dictionary<char, int> _charScores;
+        private readonly Dictionary<char, int> _charIllegalScores;
+        private readonly Dictionary<char, int> _charIncompleteScores;
 
         public Solver()
         {
@@ -19,12 +20,19 @@ namespace AdventOfCode.Day10
                 { '[', ']' },
                 { '<', '>' }
             };
-            _charScores = new Dictionary<char, int>
+            _charIllegalScores = new Dictionary<char, int>
             {
                 { ')', 3 },
                 { ']', 57 },
                 { '}', 1197 },
                 { '>', 25137 }
+            };
+            _charIncompleteScores = new Dictionary<char, int>
+            {
+                { ')', 1 },
+                { ']', 2 },
+                { '}', 3 },
+                { '>', 4 }
             };
         }
 
@@ -39,7 +47,7 @@ namespace AdventOfCode.Day10
 
             foreach (var illegalCount in illegalChars)
             {
-                var charScore = _charScores[illegalCount.Key];
+                var charScore = _charIllegalScores[illegalCount.Key];
                 var score = charScore * illegalCount.Value;
                 totalSyntaxErrorScore += score;
             }
@@ -47,11 +55,30 @@ namespace AdventOfCode.Day10
             return totalSyntaxErrorScore;
         }
 
-        public int SolvePart2(List<string> input)
+        public long SolvePart2(List<string> input)
         {
-            // get incomplete lines
-            var incomplete = input.Where(i => GetFirstIllegalChar(i) == default).ToList();
-            return 0;
+            var incomplete = input.Where(i => GetFirstIllegalChar(i) == default)
+                                  .Select(i => CompleteLine(i)).ToList();
+
+            var scores = new List<long>();
+
+            foreach (var line in incomplete)
+            {
+                long score = 0;
+
+                foreach (var character in line)
+                {
+                    score *= 5;
+                    score += _charIncompleteScores[character];
+                }
+
+                scores.Add(score);
+            }
+
+            var sorted = scores.OrderBy(s => s).ToList();
+            var middleIndex = scores.Count / 2;
+
+            return sorted[middleIndex];
         }
 
         public char GetFirstIllegalChar(string line)
@@ -76,6 +103,36 @@ namespace AdventOfCode.Day10
             }
 
             return default;
+        }
+
+        public string CompleteLine(string line)
+        {
+            var openingChunk = new List<char>();
+            var sb = new StringBuilder();
+
+            for (int i = 0; i < line.Length; i++)
+            {
+                var character = line[i];
+                if (IsOpening(character))
+                    openingChunk.Add(character);
+
+                if (IsClosing(character))
+                {
+                    var lastOpeningChar = openingChunk[^1];
+
+                    if (character == _openingClosing[lastOpeningChar])
+                        openingChunk.RemoveAt(openingChunk.Count - 1);
+                }
+            }
+
+            openingChunk.Reverse();
+
+            foreach (var character in openingChunk)
+            {
+                sb.Append(_openingClosing[character]);
+            }
+
+            return sb.ToString();
         }
 
         private bool IsOpening(char character)
