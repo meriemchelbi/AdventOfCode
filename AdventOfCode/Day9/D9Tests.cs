@@ -33,27 +33,27 @@ namespace AdventOfCode.Day9
 
             var result = _sut.SolvePart2(input);
 
-            result.Should().Be(168);
+            result.Should().Be(1134);
         }
 
         [Fact]
         public void SolvePart1()
         {
-            var input = _parser.Parse("Day7\\Input.txt");
+            var input = _parser.Parse("Day9\\Input.txt");
 
             var result = _sut.SolvePart1(input);
 
-            result.Should().Be(326132);
+            result.Should().Be(518);
         }
 
         [Fact]
         public void SolvePart2()
         {
-            var input = _parser.Parse("Day7\\Input.txt");
+            var input = _parser.Parse("Day9\\Input.txt");
 
             var result = _sut.SolvePart2(input);
 
-            result.Should().Be(88612508);
+            result.Should().Be(949905);
         }
     }
 }
