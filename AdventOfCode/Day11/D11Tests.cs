@@ -47,7 +47,7 @@ namespace AdventOfCode.Day11
 
             var result = _sut.SolvePart2(input);
 
-            result.Should().Be(0);
+            result.Should().Be(195);
         }
 
         [Fact]
@@ -57,7 +57,7 @@ namespace AdventOfCode.Day11
 
             var result = _sut.SolvePart2(input);
 
-            result.Should().Be(1158);
+            result.Should().Be(368);
         }
     }
 }

@@ -32,6 +32,36 @@ namespace AdventOfCode.Day11
             return totalFlashes;
         }
 
+        public int SolvePart2(int[][] input)
+        {
+            var finalStep = 0;
+            var octopusCount = input.Length * input.Length;
+
+            for (int i = 0; i < 5000; i++)
+            {
+                input = input.Select(line => line.Select(l => l += 1).ToArray()).ToArray();
+
+                for (int row = 0; row < input.Length; row++)
+                {
+                    for (int column = 0; column < input.Length; column++)
+                    {
+                        var octopus = input[row][column];
+                        if (octopus > 9)
+                            Flash((row, column), ref input);
+                    }
+                }
+                
+                finalStep = i + 1;
+
+                var countOfZeros = input.SelectMany(i => i).Where(z => z == 0).Count();
+                
+                if (countOfZeros == octopusCount)
+                    break;
+            }
+
+            return finalStep;
+        }
+
         private void Flash((int row, int column) octopus, ref int[][] incremented)
         {
             incremented[octopus.row][octopus.column] = 0;
@@ -87,11 +117,6 @@ namespace AdventOfCode.Day11
                 neighbours.Add((row + 1, column - 1));
 
             return neighbours;
-        }
-
-        public int SolvePart2(int[][] inputs)
-        {
-            return 0;
         }
     }
 }
