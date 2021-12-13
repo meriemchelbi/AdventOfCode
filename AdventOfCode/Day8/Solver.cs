@@ -64,24 +64,15 @@ namespace AdventOfCode.Day8
             var eight = String.Concat(patterns.FirstOrDefault(p => p.Length == 7).OrderBy(p => p));
             signalPatterns.Add(eight, "8"); // done
 
-            //var zero = eight.Substring(0, 5) + eight[^1];
-            //signalPatterns.Add(zero, "0");
+            var sortedPatterns = patterns.Select(p => p.OrderBy(l => l)).ToList();
+            var oneDifferent = sortedPatterns.Where(p => eight.Except(p).Count() == 1).ToList();
+            var twoDifferent = sortedPatterns.Where(p => eight.Except(p).Count() == 2).ToList();
 
-            //var two = eight[0] + eight.Substring(2, 2) + eight.Substring(5, 2);
-            //signalPatterns.Add(two, "2");
-            
-            //var three = eight.Substring(0, 4)+ eight[5];
-            //signalPatterns.Add(three, "3");
-            
-            //var five = eight.Substring(1, 5);
-            //signalPatterns.Add(five, "5");
-            
-            var six = patterns.Where(p => (p + eight).Distinct().Count() == 1 && (p + one).Distinct().Count() == 1).ToString();
-            signalPatterns.Add(six, "6"); // done
-            
-            //var nine = eight.Substring(0, 6);
-            //signalPatterns.Add(nine, "9");
+            var six = String.Concat(oneDifferent.First(c => c.Intersect(one).Count() == 1));
+            signalPatterns.Add(six, "6");
 
+            var intersect = twoDifferent.Where(p => p.Except(six).Count() == 1)
+                                        .First(p => p.Intersect(one).Count() == 1);
             return signalPatterns;
         }
 
