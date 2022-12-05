@@ -7,62 +7,112 @@ namespace AdventOfCode.Day_2
 {
     public class D2Solver
     {
+        
+        public int SolvePart1Alternative(List<string> strategy)
+        {
+            var totalScore = 0;
+            var roundCount = new Dictionary<string, int>();
+
+            foreach (var round in strategy)
+            {
+                if (!roundCount.TryAdd(round, 1))
+                {
+                    roundCount[round]++;
+                }
+
+            }
+            
+            foreach (var round in roundCount)
+            {
+                totalScore += GetScore(round.Key) * round.Value;
+            }
+
+            return totalScore;
+        }
+
+        private int GetScore(string round)
+        {
+            var opponentMove = round[0];
+            var myMove = round[1];
+
+            var opponentChoice = MatchMove(opponentMove);
+            var myChoice = MatchMove(myMove);
+
+            var roundScore = RoundOutcome((opponentChoice, myChoice));
+
+            return roundScore + myChoice;
+        }
+
+        private int MatchMove(char move)
+        {
+            switch (move)
+            {
+                // Rock
+                case 'A':
+                case 'X':
+                    return 1;
+
+                // Paper
+                case 'B':
+                case 'Y':
+                    return 2;
+
+                // Scissors
+                case 'C':
+                case 'Z':
+                    return 3;
+
+                default:
+                    return 1000000;
+            }
+        }
+
         public int SolvePart1(List<(int, int)> strategy)
         {
             var totalScore = 0;
 
             foreach (var round in strategy)
             {
-                var score = RoundOutcome(round) + round.Item2;
-                
-                // Validation
-                if (score > 9)
-                {
-                    throw new Exception("invalid score!");
-                }
-
+                var outcomeScore = RoundOutcome(round);
+                var score =  outcomeScore + round.Item2;
                 totalScore += score;
             }
-            
+
+            //var roundCount = new Dictionary<(int, int), int>();
+
+            //foreach (var round in strategy)
+            //{
+            //    if (!roundCount.TryAdd(round, 1))
+            //    {
+            //        roundCount[round]++;
+            //    }
+            //}
+
+            //foreach (var round in roundCount)
+            //{
+            //    var score = RoundOutcome(round.Key) + round.Key.Item2;
+            //    totalScore += score * round.Value;
+            //}
+
             return totalScore;
         }
         
-        //public int SolvePart2(List<int> totalCaloriesPerElf)
-        //{
-        //    var orderedDescending = totalCaloriesPerElf.OrderByDescending(e => e);
-        //    var topThree = orderedDescending.Take(3);
-
-        //    var total = 0;
-
-        //    foreach (var item in topThree)
-        //    {
-        //        total += item;
-        //    }
-            
-        //    return total;
-        //}
-
         private int RoundOutcome((int, int) strategy)
         {
-            // draw
-            if (strategy.Item1 == strategy.Item2)
+            var scores = new Dictionary<(int, int), int>
             {
-                return 3;
-            }
+                { (1, 1), 3 },
+                { (2, 2), 3 },
+                { (3, 3), 3 },
+                { (1, 2), 6 },
+                { (1, 3), 0 },
+                { (2, 1), 0 },
+                { (2, 3), 6 },
+                { (3, 1), 6 },
+                { (3, 2), 0 },
+            };
             
-            // win
-            if (strategy.Item1 < strategy.Item2)
-            {
-                return 6;
-            }
-
-            // loss
-            if (strategy.Item1 > strategy.Item2)
-            {
-                return 0;
-            }
-
-            else return 1000;
+            return scores[strategy];
         }
     }
 }

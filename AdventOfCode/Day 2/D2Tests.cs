@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentAssertions;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Xunit;
@@ -51,7 +52,7 @@ namespace AdventOfCode.Day_2
 
             var result = _solver.SolvePart1(data);
 
-            Assert.Equal(expected, result);
+            result.Should().Be(13268);
         }
 
         //[Fact]

@@ -16,7 +16,7 @@ namespace AdventOfCode.Day_2
             using (var sr = new StreamReader(absolutePath))
             {
                 string line;
-                
+
                 while ((line = sr.ReadLine()) != null)
                 {
                     var strategy = line.Split(' ');
@@ -26,17 +26,9 @@ namespace AdventOfCode.Day_2
                     {
                         intMoves.Add(MatchMove(move));
                     }
-                    
-                    //var intMoves = strategy.Select(MatchMove);
 
-                    // Validation
-                    if (intMoves.Any(m => m > 3))
-                    {
-                        throw new Exception("bad data found!");
-                    }
+                    var moves = (intMoves[0], intMoves[1]);
 
-                    var moves = (intMoves[0] , intMoves[1]);
-                    
                     output.Add(moves);
                 }
             }
@@ -50,19 +42,19 @@ namespace AdventOfCode.Day_2
             {
                 // Rock
                 case "A":
-                case "X": 
+                case "X":
                     return 1;
-                
+
                 // Paper
                 case "B":
-                case "Y": 
+                case "Y":
                     return 2;
-                
+
                 // Scissors
                 case "C":
-                case "Z": 
+                case "Z":
                     return 3;
-                
+
                 default:
                     return 1000000;
             }
