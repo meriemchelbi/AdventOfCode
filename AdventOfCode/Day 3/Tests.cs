@@ -19,7 +19,7 @@ namespace AdventOfCode.Day_3
         [Fact]
         public void TestInput_Parses()
         {
-            var expected = new List<(int, int)> { (1, 2), (2, 1), (3, 3) };
+            var expected = new List<string> { "vJrwpWtwJgWrhcsFMMfFFhFp", "jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL", "PmmdzqPrVvPwwTWBwg", "wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn", "ttgJtRGJQctTZtZT", "CrZsJsPPZsGzwwsLwLmpwMDw" };
 
             var path = "Day 3\\TestInput.txt";
             var parsed = _parser.Parse(path);
@@ -30,7 +30,7 @@ namespace AdventOfCode.Day_3
         [Fact]
         public void Part1_Test()
         {
-            var expected = 15;
+            var expected = 157;
 
             var path = "Day 3\\TestInput.txt";
             var data = _parser.Parse(path);
@@ -39,12 +39,11 @@ namespace AdventOfCode.Day_3
 
             Assert.Equal(expected, result);
         }
-
+        
         [Fact]
         public void Part1_Actual()
         {
-            // too low
-            var expected = 12940;
+            var expected = 8185;
 
             var path = "Day 3\\Input.txt";
             var data = _parser.Parse(path);
@@ -54,40 +53,31 @@ namespace AdventOfCode.Day_3
             Assert.Equal(expected, result);
         }
 
-        //[Fact]
-        //public void Part1_MostCalories_Actual()
-        //{
-        //    var expected = 69693;
+        [Fact]
+        public void Part2_Test()
+        {
+            var expected = 70;
 
-        //    var path = "Day 3\\Input.txt";
-        //    var data = _parser.Parse(path);
-        //    var mostCalories = _solver.SolvePart1(data);
+            var path = "Day 3\\TestInput.txt";
+            var data = _parser.Parse(path);
 
-        //    Assert.Equal(expected, mostCalories);
-        //}
+            var result = _solver.SolvePart2(data);
 
-        //[Fact]
-        //public void Part2_Top3_Test()
-        //{
-        //    var expected = 45000;
+            Assert.Equal(expected, result);
+        }
+        
+        [Fact]
+        public void Part2_Actual()
+        {
+            var expected = 2817;
 
-        //    var path = "Day 1\\D1TestInput.txt";
-        //    var data = _parser.Parse(path);
-        //    var mostCalories = _solver.SolvePart2(data);
+            var path = "Day 3\\Input.txt";
+            var data = _parser.Parse(path);
 
-        //    Assert.Equal(expected, mostCalories);
-        //}
+            var result = _solver.SolvePart2(data);
 
-        //[Fact]
-        //public void Part2_Top3_Actual()
-        //{
-        //    var expected = 200945;
+            Assert.Equal(expected, result);
+        }
 
-        //    var path = "Day 1\\D1Input.txt";
-        //    var data = _parser.Parse(path);
-        //    var mostCalories = _solver.SolvePart2(data);
-
-        //    Assert.Equal(expected, mostCalories);
-        //}
     }
 }

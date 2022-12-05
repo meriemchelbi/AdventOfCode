@@ -7,62 +7,52 @@ namespace AdventOfCode.Day_3
 {
     public class Solver
     {
-        public int SolvePart1(List<(int, int)> strategy)
+        public int SolvePart1(List<string> input)
         {
-            var totalScore = 0;
-
-            foreach (var round in strategy)
+            var sumOfPriorities = 0;
+            
+            foreach (var rucksack in input)
             {
-                var score = RoundOutcome(round) + round.Item2;
-                
-                // Validation
-                if (score > 9)
-                {
-                    throw new Exception("invalid score!");
-                }
-
-                totalScore += score;
+                var compartmentContents = GetCompartmentContents(rucksack);
+                var commonItem = compartmentContents.FirstOrDefault().Intersect(compartmentContents.LastOrDefault());
+                var priority = GetItemPriority(commonItem.FirstOrDefault());
+                sumOfPriorities += priority;
             }
             
-            return totalScore;
+            return sumOfPriorities;
         }
-        
-        //public int SolvePart2(List<int> totalCaloriesPerElf)
-        //{
-        //    var orderedDescending = totalCaloriesPerElf.OrderByDescending(e => e);
-        //    var topThree = orderedDescending.Take(3);
-
-        //    var total = 0;
-
-        //    foreach (var item in topThree)
-        //    {
-        //        total += item;
-        //    }
-            
-        //    return total;
-        //}
-
-        private int RoundOutcome((int, int) strategy)
+        public int SolvePart2(List<string> input)
         {
-            // draw
-            if (strategy.Item1 == strategy.Item2)
+            var sumOfPriorities = 0;
+
+            for (var i = 0; i < input.Count; i+= 3)
             {
-                return 3;
-            }
-            
-            // win
-            if (strategy.Item1 < strategy.Item2)
-            {
-                return 6;
+                var groupElves = input.Take(new Range(i, i + 3)).ToList();
+                var commonItems1 = groupElves[0].Intersect(groupElves[1]);
+                var commonItems2 = commonItems1.Intersect(groupElves[2]);
+                var priority = GetItemPriority(commonItems2.FirstOrDefault());
+                sumOfPriorities += priority;
             }
 
-            // loss
-            if (strategy.Item1 > strategy.Item2)
-            {
-                return 0;
-            }
-
-            else return 1000;
+            return sumOfPriorities;
         }
+
+        private List<string> GetCompartmentContents(string rucksack)
+        {
+            var compartmentItems = rucksack.Length/2;
+            return new List<string>
+            {
+                rucksack.Substring(0, compartmentItems),
+                rucksack.Substring(compartmentItems, compartmentItems)
+            };
+        }
+
+        private int GetItemPriority(char item)
+        {
+            var alphabet = "0abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+            return alphabet.IndexOf(item);
+        }
+
     }
 }
