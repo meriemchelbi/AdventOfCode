@@ -52,8 +52,7 @@ namespace AdventOfCode.Day_4
         [Fact]
         public void Part1_Actual()
         {
-            // too high
-            var expected = 983;
+            var expected = 573;
 
             var path = $"Day {Day}\\Input.txt";
             var data = _parser.Parse(path);
@@ -63,30 +62,30 @@ namespace AdventOfCode.Day_4
             Assert.Equal(expected, result);
         }
 
-        //[Fact]
-        //public void Part2_Test()
-        //{
-        //    var expected = 70;
+        [Fact]
+        public void Part2_Test()
+        {
+            var expected = 4;
 
-        //    var path = $"Day {Day}\\TestInput.txt";
-        //    var data = _parser.Parse(path);
+            var path = $"Day {Day}\\TestInput.txt";
+            var data = _parser.Parse(path);
 
-        //    var result = _solver.SolvePart2(data);
+            var result = _solver.SolvePart2(data);
 
-        //    Assert.Equal(expected, result);
-        //}
+            Assert.Equal(expected, result);
+        }
 
-        //[Fact]
-        //public void Part2_Actual()
-        //{
-        //    var expected = 2817;
+        [Fact]
+        public void Part2_Actual()
+        {
+            var expected = 2817;
 
-        //    var path = $"Day {Day}\\Input.txt";
-        //    var data = _parser.Parse(path);
+            var path = $"Day {Day}\\Input.txt";
+            var data = _parser.Parse(path);
 
-        //    var result = _solver.SolvePart2(data);
+            var result = _solver.SolvePart2(data);
 
-        //    Assert.Equal(expected, result);
-        //}
+            Assert.Equal(expected, result);
+        }
     }
 }
