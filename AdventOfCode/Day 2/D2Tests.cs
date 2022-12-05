@@ -55,40 +55,28 @@ namespace AdventOfCode.Day_2
             result.Should().Be(13268);
         }
 
-        //[Fact]
-        //public void Part1_MostCalories_Actual()
-        //{
-        //    var expected = 69693;
+        [Fact]
+        public void Part2_Test()
+        {
+            var expected = 12;
 
-        //    var path = "Day 1\\D1Input.txt";
-        //    var data = _parser.Parse(path);
-        //    var mostCalories = _solver.SolvePart1(data);
+            var path = "Day 2\\D2TestInput.txt";
+            var data = _parser.Parse(path);
+            var mostCalories = _solver.SolvePart2(data);
 
-        //    Assert.Equal(expected, mostCalories);
-        //}
+            Assert.Equal(expected, mostCalories);
+        }
+        
+        [Fact]
+        public void Part2_Actual()
+        {
+            var expected = 15508;
 
-        //[Fact]
-        //public void Part2_Top3_Test()
-        //{
-        //    var expected = 45000;
+            var path = "Day 2\\D2Input.txt";
+            var data = _parser.Parse(path);
+            var mostCalories = _solver.SolvePart2(data);
 
-        //    var path = "Day 1\\D1TestInput.txt";
-        //    var data = _parser.Parse(path);
-        //    var mostCalories = _solver.SolvePart2(data);
-
-        //    Assert.Equal(expected, mostCalories);
-        //}
-
-        //[Fact]
-        //public void Part2_Top3_Actual()
-        //{
-        //    var expected = 200945;
-
-        //    var path = "Day 1\\D1Input.txt";
-        //    var data = _parser.Parse(path);
-        //    var mostCalories = _solver.SolvePart2(data);
-
-        //    Assert.Equal(expected, mostCalories);
-        //}
+            Assert.Equal(expected, mostCalories);
+        }
     }
 }

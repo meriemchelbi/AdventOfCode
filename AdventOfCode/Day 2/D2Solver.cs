@@ -8,65 +8,6 @@ namespace AdventOfCode.Day_2
     public class D2Solver
     {
         
-        public int SolvePart1Alternative(List<string> strategy)
-        {
-            var totalScore = 0;
-            var roundCount = new Dictionary<string, int>();
-
-            foreach (var round in strategy)
-            {
-                if (!roundCount.TryAdd(round, 1))
-                {
-                    roundCount[round]++;
-                }
-
-            }
-            
-            foreach (var round in roundCount)
-            {
-                totalScore += GetScore(round.Key) * round.Value;
-            }
-
-            return totalScore;
-        }
-
-        private int GetScore(string round)
-        {
-            var opponentMove = round[0];
-            var myMove = round[1];
-
-            var opponentChoice = MatchMove(opponentMove);
-            var myChoice = MatchMove(myMove);
-
-            var roundScore = RoundOutcome((opponentChoice, myChoice));
-
-            return roundScore + myChoice;
-        }
-
-        private int MatchMove(char move)
-        {
-            switch (move)
-            {
-                // Rock
-                case 'A':
-                case 'X':
-                    return 1;
-
-                // Paper
-                case 'B':
-                case 'Y':
-                    return 2;
-
-                // Scissors
-                case 'C':
-                case 'Z':
-                    return 3;
-
-                default:
-                    return 1000000;
-            }
-        }
-
         public int SolvePart1(List<(int, int)> strategy)
         {
             var totalScore = 0;
@@ -96,6 +37,19 @@ namespace AdventOfCode.Day_2
 
             return totalScore;
         }
+
+        public int SolvePart2(List<(int, int)> strategy)
+        {
+            var totalScore = 0;
+
+            foreach (var round in strategy)
+            {
+                var outcomeScore = GuessOutcome(round);
+                totalScore += outcomeScore;
+            }
+
+            return totalScore;
+        }
         
         private int RoundOutcome((int, int) strategy)
         {
@@ -112,6 +66,24 @@ namespace AdventOfCode.Day_2
                 { (3, 2), 0 },
             };
             
+            return scores[strategy];
+        }
+
+        private int GuessOutcome((int, int) strategy)
+        {
+            var scores = new Dictionary<(int, int), int>
+            {
+                { (1, 1), 0 + 3 },
+                { (2, 1), 0 + 1 },
+                { (3, 1), 0 + 2 },
+                { (1, 2), 3 + 1 },
+                { (2, 2), 3 + 2 },
+                { (3, 2), 3 + 3 },
+                { (1, 3), 6 + 2 },
+                { (2, 3), 6 + 3 },
+                { (3, 3), 6 + 1 },
+            };
+
             return scores[strategy];
         }
     }
