@@ -77,7 +77,7 @@ namespace AdventOfCode.Day_5
         [Fact]
         public void Part1_Actual()
         {
-            var expected = "CMZ";
+            var expected = "BZLVHBWQF";
 
             var path = $"Day {Day}\\Input.txt";
             var data = _parser.Parse(path);
@@ -87,30 +87,30 @@ namespace AdventOfCode.Day_5
             Assert.Equal(expected, result);
         }
 
-        //[Fact]
-        //public void Part2_Test()
-        //{
-        //    var expected = 4;
+        [Fact]
+        public void Part2_Test()
+        {
+            var expected = "MCD";
 
-        //    var path = $"Day {Day}\\TestInput.txt";
-        //    var data = _parser.Parse(path);
+            var path = $"Day {Day}\\TestInput.txt";
+            var data = _parser.Parse(path);
 
-        //    var result = _solver.SolvePart2(data);
+            var result = _solver.SolvePart2(data);
 
-        //    Assert.Equal(expected, result);
-        //}
+            Assert.Equal(expected, result);
+        }
 
-        //[Fact]
-        //public void Part2_Actual()
-        //{
-        //    var expected = 867;
+        [Fact]
+        public void Part2_Actual()
+        {
+            var expected = "TDGJQTZSL";
 
-        //    var path = $"Day {Day}\\Input.txt";
-        //    var data = _parser.Parse(path);
+            var path = $"Day {Day}\\Input.txt";
+            var data = _parser.Parse(path);
 
-        //    var result = _solver.SolvePart2(data);
+            var result = _solver.SolvePart2(data);
 
-        //    Assert.Equal(expected, result);
-        //}
+            Assert.Equal(expected, result);
+        }
     }
 }
