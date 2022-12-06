@@ -11,7 +11,7 @@ namespace AdventOfCode.Day_6
         private readonly Day6Parser _parser;
         private readonly Day6Solver _solver;
 
-        private const int Day = 5;
+        private const int Day = 6;
 
         public Day6Tests()
         {
@@ -35,7 +35,7 @@ namespace AdventOfCode.Day_6
         [Fact]
         public void Part1_Actual()
         {
-            var expected = 0;
+            var expected = 1892;
 
             var path = $"Day {Day}\\Input.txt";
             var data = _parser.Parse(path);
