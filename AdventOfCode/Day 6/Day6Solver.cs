@@ -9,33 +9,25 @@ namespace AdventOfCode.Day_6
     {
         public int SolvePart1(string input)
         {
-            var result = 0;
-
-            for (int i = 0; i < input.Length; i++)
-            {
-                var potentialMarker = input.Substring(i, 4);
-                var uniqueCharacters = potentialMarker.Distinct().Count();
-                if (uniqueCharacters == 4)
-                {
-                    result = i + 4;
-                    break;
-                }
-            }
-
-            return result;
+            return GetResult(input, 4);
         }
 
         public int SolvePart2(string input)
+        {
+            return GetResult(input, 14);
+        }
+
+        private static int GetResult(string input, int markerLength)
         {
             var result = 0;
 
             for (int i = 0; i < input.Length; i++)
             {
-                var potentialMarker = input.Substring(i, 14);
+                var potentialMarker = input.Substring(i, markerLength);
                 var uniqueCharacters = potentialMarker.Distinct().Count();
-                if (uniqueCharacters == 14)
+                if (uniqueCharacters == markerLength)
                 {
-                    result = i + 14;
+                    result = i + markerLength;
                     break;
                 }
             }
