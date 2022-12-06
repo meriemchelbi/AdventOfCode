@@ -45,30 +45,30 @@ namespace AdventOfCode.Day_6
             Assert.Equal(expected, result);
         }
 
-        //[Fact]
-        //public void Part2_Test()
-        //{
-        //    var expected = "MCD";
+        [Theory]
+        [InlineData("mjqjpqmgbljsphdztnvjfqwrcgsmlb", 19)]
+        [InlineData("bvwbjplbgvbhsrlpgdmjqwftvncz", 23)]
+        [InlineData("nppdvjthqldpwncqszvftbrmjlhg", 23)]
+        [InlineData("nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg", 29)]
+        [InlineData("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw", 26)]
+        public void Part2_Test(string input, int expected)
+        {
+            var result = _solver.SolvePart2(input);
 
-        //    var path = $"Day {Day}\\TestInput.txt";
-        //    var data = _parser.Parse(path);
+            Assert.Equal(expected, result);
+        }
 
-        //    var result = _solver.SolvePart2(data);
+        [Fact]
+        public void Part2_Actual()
+        {
+            var expected = 2313;
 
-        //    Assert.Equal(expected, result);
-        //}
+            var path = $"Day {Day}\\Input.txt";
+            var data = _parser.Parse(path);
 
-        //[Fact]
-        //public void Part2_Actual()
-        //{
-        //    var expected = "TDGJQTZSL";
+            var result = _solver.SolvePart2(data);
 
-        //    var path = $"Day {Day}\\Input.txt";
-        //    var data = _parser.Parse(path);
-
-        //    var result = _solver.SolvePart2(data);
-
-        //    Assert.Equal(expected, result);
-        //}
+            Assert.Equal(expected, result);
+        }
     }
 }

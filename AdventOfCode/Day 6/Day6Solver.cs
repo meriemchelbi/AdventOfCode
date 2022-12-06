@@ -27,7 +27,20 @@ namespace AdventOfCode.Day_6
 
         public int SolvePart2(string input)
         {
-            return 0;
+            var result = 0;
+
+            for (int i = 0; i < input.Length; i++)
+            {
+                var potentialMarker = input.Substring(i, 14);
+                var uniqueCharacters = potentialMarker.Distinct().Count();
+                if (uniqueCharacters == 14)
+                {
+                    result = i + 14;
+                    break;
+                }
+            }
+
+            return result;
         }
     }
 }
