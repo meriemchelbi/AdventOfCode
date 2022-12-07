@@ -8,17 +8,22 @@ namespace AdventOfCode.Day_7
 {
     public class Day7Parser
     {
-        public string Parse(string inputPath)
+        public List<string[]> Parse(string inputPath)
         {
             var absolutePath = Path.GetFullPath(inputPath);
-            string input;
-            
+            var output = new List<string[]>();
+
             using (var sr = new StreamReader(absolutePath))
             {
-                input = sr.ReadLine();
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    var commands = line.Split(' ');
+                    output.Add(commands);
+                }
             }
 
-            return input;
+            return output;
         }
     }
 }

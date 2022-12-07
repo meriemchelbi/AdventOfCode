@@ -19,10 +19,24 @@ namespace AdventOfCode.Day_7
             _solver = new Day7Solver();
         }
 
-        [Theory]
-        [InlineData("mjqjpqmgbljsphdztnvjfqwrcgsmlb", 7)]
-        public void Part1_Test(string input, int expected)
+        [Fact]
+        public void TestInput_Parses()
         {
+            var path = $"Day {Day}\\TestInput.txt";
+            var parsed = _parser.Parse(path);
+
+            // for debugging
+            Assert.True(true); ;
+        }
+
+        [Fact]
+        public void Part1_Test()
+        {
+            var expected = 95437;
+
+            var path = $"Day {Day}\\TestInput.txt";
+            var input = _parser.Parse(path);
+
             var result = _solver.SolvePart1(input);
 
             Assert.Equal(expected, result);
@@ -36,31 +50,31 @@ namespace AdventOfCode.Day_7
             var path = $"Day {Day}\\Input.txt";
             var data = _parser.Parse(path);
 
-            var result = _solver.SolvePart1(data);
+            var result = _solver.SolvePart1Dictionary(data);
 
             Assert.Equal(expected, result);
         }
 
-        [Theory]
-        [InlineData("mjqjpqmgbljsphdztnvjfqwrcgsmlb", 19)]
-        public void Part2_Test(string input, int expected)
-        {
-            var result = _solver.SolvePart2(input);
+        //[Theory]
+        //[InlineData("mjqjpqmgbljsphdztnvjfqwrcgsmlb", 19)]
+        //public void Part2_Test(string input, int expected)
+        //{
+        //    var result = _solver.SolvePart2(input);
 
-            Assert.Equal(expected, result);
-        }
+        //    Assert.Equal(expected, result);
+        //}
 
-        [Fact]
-        public void Part2_Actual()
-        {
-            var expected = 2313;
+        //[Fact]
+        //public void Part2_Actual()
+        //{
+        //    var expected = 2313;
 
-            var path = $"Day {Day}\\Input.txt";
-            var data = _parser.Parse(path);
+        //    var path = $"Day {Day}\\Input.txt";
+        //    var data = _parser.Parse(path);
 
-            var result = _solver.SolvePart2(data);
+        //    var result = _solver.SolvePart2(data);
 
-            Assert.Equal(expected, result);
-        }
+        //    Assert.Equal(expected, result);
+        //}
     }
 }
