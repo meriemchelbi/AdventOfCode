@@ -45,12 +45,12 @@ namespace AdventOfCode.Day_7
         [Fact]
         public void Part1_Actual()
         {
-            var expected = 1892;
+            var expected = 1743217;
 
             var path = $"Day {Day}\\Input.txt";
             var data = _parser.Parse(path);
 
-            var result = _solver.SolvePart1Dictionary(data);
+            var result = _solver.SolvePart1(data);
 
             Assert.Equal(expected, result);
         }

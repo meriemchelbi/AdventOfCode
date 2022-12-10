@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace AdventOfCode.Day_7
 {
@@ -17,8 +13,7 @@ namespace AdventOfCode.Day_7
         public string Name { get; set; }
         public List<int> FileSizes { get; }
         public List<Directory> Children { get; }
-        public string ParentName { get; set; }
-        public int TotalFileSize { get; set; }
+        public Directory Parent { get; set; }
         public int TotalSize { get; set; }
     }
 }
