@@ -16,10 +16,6 @@ namespace AdventOfCode.Day_7
         {
             GetDirectories(input);
 
-            var currentDirectory = _directories.First(d => d.Name.Equals("/"));
-
-            CalculateTotalSize(currentDirectory);
-
             var max100kDirectorySize = _directories.Where(d => d.TotalSize <= 100000);
 
             return max100kDirectorySize.Select(d => d.TotalSize).Sum();
@@ -27,7 +23,15 @@ namespace AdventOfCode.Day_7
 
         public int SolvePart2(List<string[]> input)
         {
-            return 0;
+            GetDirectories(input);
+
+            var currentUsedSpace = _directories.First().TotalSize;
+            var currentUnusedSpace = 70000000 - currentUsedSpace;
+            var spaceToFree = 30000000 - currentUnusedSpace;
+
+            var candidatesForDeletion = _directories.Where(d => d.TotalSize >= spaceToFree);
+
+            return candidatesForDeletion.Min(d => d.TotalSize);
         }
         
         private void GetDirectories(List<string[]> input)
@@ -71,7 +75,11 @@ namespace AdventOfCode.Day_7
                     _directories.First(d => d == currentDirectory).FileSizes.Add(fileSize);
                     continue;
                 }
+
             }
+
+            var rootDirectory = _directories.First();
+            CalculateTotalSize(rootDirectory);
         }
 
         private Directory MoveDirectory(Directory currentDirectory, string destination)

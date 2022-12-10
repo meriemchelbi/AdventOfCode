@@ -55,26 +55,30 @@ namespace AdventOfCode.Day_7
             Assert.Equal(expected, result);
         }
 
-        //[Theory]
-        //[InlineData("mjqjpqmgbljsphdztnvjfqwrcgsmlb", 19)]
-        //public void Part2_Test(string input, int expected)
-        //{
-        //    var result = _solver.SolvePart2(input);
+        [Fact]
+        public void Part2_Test()
+        {
+            var expected = 24933642;
 
-        //    Assert.Equal(expected, result);
-        //}
+            var path = $"Day {Day}\\TestInput.txt";
+            var input = _parser.Parse(path);
 
-        //[Fact]
-        //public void Part2_Actual()
-        //{
-        //    var expected = 2313;
+            var result = _solver.SolvePart2(input);
 
-        //    var path = $"Day {Day}\\Input.txt";
-        //    var data = _parser.Parse(path);
+            Assert.Equal(expected, result);
+        }
 
-        //    var result = _solver.SolvePart2(data);
+        [Fact]
+        public void Part2_Actual()
+        {
+            var expected = 8319096;
 
-        //    Assert.Equal(expected, result);
-        //}
+            var path = $"Day {Day}\\Input.txt";
+            var data = _parser.Parse(path);
+
+            var result = _solver.SolvePart2(data);
+
+            Assert.Equal(expected, result);
+        }
     }
 }
