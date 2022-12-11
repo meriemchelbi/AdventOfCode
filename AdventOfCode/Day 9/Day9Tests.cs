@@ -55,7 +55,7 @@ namespace AdventOfCode.Day_9
         [Fact]
         public void Part1_Actual()
         {
-            var expected = 0;
+            var expected = 6494;
 
             var path = $"Day {Day}\\Input.txt";
             var data = _parser.Parse(path);
