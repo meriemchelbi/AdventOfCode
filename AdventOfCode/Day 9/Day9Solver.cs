@@ -9,36 +9,56 @@ namespace AdventOfCode.Day_9
     {
         public int SolvePart1(List<(string, int)> input)
         {
-            (int row, int column) start = (0, 0);
-            (int row, int column) tailPosition = start;
-            (int row, int column) headPosition = start;
+            List<(int, int)> tailPositions = GetTailPositions(input, 2);
 
-            var tailPositions = new List<(int, int)> { (0,0) };
+            return tailPositions.Distinct().Count();
+        }
+
+        public int SolvePart2(List<(string, int)> input)
+        {
+            List<(int, int)> tailPositions = GetTailPositions(input, 9);
+
+            return tailPositions.Distinct().Count();
+        }
+
+        private List<(int, int)> GetTailPositions(List<(string, int)> input, int numberOfKnots)
+        {
+            (int row, int column) start = (0, 0);
+            var knots = new List<(int, int)>();
+            for (int i = 0; i < numberOfKnots; i++)
+            {
+                knots.Add(start);
+            }
+
+            var tailPositions = new List<(int, int)> { start };
 
             foreach (var (direction, distance) in input)
             {
                 for (int i = 0; i < distance; i++)
                 {
-                    var newHeadPosition = Move(headPosition, direction, 1);
-
-                    if (!AreAdjacent(newHeadPosition, tailPosition))
+                    for (int j = 1; j < numberOfKnots; j++)
                     {
-                        tailPosition = headPosition;
-                        tailPositions.Add(tailPosition);
+                        var currentKnot = knots[j];
+                        var previousKnot = knots[j - 1];
+                        var previousKnotNextPosition = Move(previousKnot, direction, 1);
+
+                        if (!AreAdjacent(currentKnot, previousKnotNextPosition))
+                        {
+                            knots[j] = previousKnot;
+
+                            // if knot is final knot
+                            if (j == numberOfKnots - 1)
+                            {
+                                tailPositions.Add(knots[j]);
+                            }
+                        }
+
+                        knots[j - 1] = previousKnotNextPosition;
                     }
-                    headPosition = newHeadPosition;
                 }
             }
 
-            return tailPositions.Distinct().Count();
-        }
-
-        private bool AreAdjacent((int row, int column) headPosition, (int row, int column) tailPosition)
-        {
-            var rowDifferential = Math.Abs(headPosition.row - tailPosition.row);
-            var columnDifferential = Math.Abs(headPosition.column - tailPosition.column);
-
-            return rowDifferential < 2 && columnDifferential < 2;
+            return tailPositions;
         }
 
         private (int row, int column) Move((int row, int column) headPosition, string direction, int distance) 
@@ -49,9 +69,13 @@ namespace AdventOfCode.Day_9
                 "L" => (headPosition.row, headPosition.column - distance),
                 _ => throw new Exception(),
         };
-        public int SolvePart2(List<(string, int)> input)
+
+        private bool AreAdjacent((int row, int column) headPosition, (int row, int column) tailPosition)
         {
-            return 0;
+            var rowDifferential = Math.Abs(headPosition.row - tailPosition.row);
+            var columnDifferential = Math.Abs(headPosition.column - tailPosition.column);
+
+            return rowDifferential < 2 && columnDifferential < 2;
         }
     }
 }
