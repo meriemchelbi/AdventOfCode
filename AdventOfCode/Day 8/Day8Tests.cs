@@ -11,7 +11,7 @@ namespace AdventOfCode.Day_8
         private readonly Day8Parser _parser;
         private readonly Day8Solver _solver;
 
-        private const int Day = 6;
+        private const int Day = 8;
 
         public Day8Tests()
         {
@@ -44,35 +44,35 @@ namespace AdventOfCode.Day_8
 
             var result = _solver.SolvePart1(data);
 
-            Assert.Equal(0, result);
+            result.Should().Be(1672);
         }
 
-        //[Fact]
-        //public void Part2_Test()
-        //{
-        //    var input = new List<string>
-        //    {
-        //        "30373",
-        //        "25512",
-        //        "65332",
-        //        "33549",
-        //        "35390"
-        //    };
+        [Fact]
+        public void Part2_Test()
+        {
+            var input = new List<string>
+            {
+                "30373",
+                "25512",
+                "65332",
+                "33549",
+                "35390"
+            };
 
-        //    var result = _solver.SolvePart2(input);
+            var result = _solver.SolvePart2(input);
 
-        //    Assert.Equal(0, result);
-        //}
+            Assert.Equal(8, result);
+        }
 
-        //[Fact]
-        //public void Part2_Actual()
-        //{
-        //    var path = $"Day {Day}\\Input.txt";
-        //    var data = _parser.Parse(path);
+        [Fact]
+        public void Part2_Actual()
+        {
+            var path = $"Day {Day}\\Input.txt";
+            var data = _parser.Parse(path);
 
-        //    var result = _solver.SolvePart2(data);
+            var result = _solver.SolvePart2(data);
 
-        //    Assert.Equal(0, result);
-        //}
+            Assert.Equal(327180, result);
+        }
     }
 }
