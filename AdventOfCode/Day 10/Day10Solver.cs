@@ -7,9 +7,45 @@ namespace AdventOfCode.Day_10
 {
     public class Day10Solver
     {
-        public int SolvePart1(List<(string, int)> input)
+        public int SolvePart1(List<(string command, int v)> input)
         {
-            return 0;
+            var x = 1;
+            var valuesOfX = new List<int>();
+
+            foreach (var (command, v) in input)
+            {
+                if (command.Equals("noop"))
+                {
+                    valuesOfX.Add(x);
+                    continue;
+                }
+
+                if (command.Equals("addx"))
+                {
+                    valuesOfX.Add(x);
+                    x += v;
+                    valuesOfX.Add(x);
+                    continue;
+                }
+            }
+
+            var signalStrengths = new List<int>();
+
+            for (int i = 0; i < valuesOfX.Count; i++)
+            {
+                var value = valuesOfX[i];
+                var signalStrength = value * i;
+                signalStrengths.Add(signalStrength);
+            }
+
+            var selectedSignalStrengths = signalStrengths[21] 
+                                        + signalStrengths[61] 
+                                        + signalStrengths[101] 
+                                        + signalStrengths[141] 
+                                        + signalStrengths[181] 
+                                        + signalStrengths[221];
+            
+            return selectedSignalStrengths;
         }
 
         public int SolvePart2(List<(string, int)> input)
