@@ -7,17 +7,21 @@ namespace AdventOfCode.Day1
 {
     public class Solver
     {
-        public int CalculateMeasurementIncreases(List<int> inputs)
+        public int CalculateMeasurementIncreases(List<int> myListOfInputs)
         {
             var numberOfIncreases = 0;
 
-            for (int i = 1; i < inputs.Count; i++)
+            for (int positionInList = 1; positionInList < myListOfInputs.Count; positionInList++)
             {
-                if (inputs[i] > inputs[i - 1])
+                var previousItem = myListOfInputs[positionInList - 1];
+                var currentItem = myListOfInputs[positionInList];
+
+                if (currentItem > previousItem)
                 {
                     numberOfIncreases++;
                 }
             }
+
             return numberOfIncreases;
         }
         
