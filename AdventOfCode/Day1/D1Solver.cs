@@ -6,7 +6,7 @@ namespace AdventOfCode.Day1
     {
         public int SolvePart1(Locations input)
         {
-            var distances = new List<int>();
+            var distances = 0;
 
             input.LeftList.Sort();
             input.RightList.Sort();
@@ -14,15 +14,15 @@ namespace AdventOfCode.Day1
             for (int i = 0; i < input.LeftList.Count; i++)
             {
                 var distance = Math.Abs(input.RightList[i] - input.LeftList[i]);
-                distances.Add(distance);
+                distances += distance;
             }
 
-            return distances.Sum();
+            return distances;
         }
 
         public int SolvePart2(Locations input)
         {
-            var similarityScores = new List<int>();
+            var similarityScores = 0;
             var rightListCounts = input.RightList.GroupBy(i => i)
                                                   .ToDictionary(g => g.Key, g => g.Count() );
             foreach (var item in input.LeftList)
@@ -32,10 +32,10 @@ namespace AdventOfCode.Day1
                 if (!isInRightList)
                     continue;
 
-                similarityScores.Add(itemCount * item);
+                similarityScores += (itemCount * item);
             }
 
-            return similarityScores.Sum();
+            return similarityScores;
         }
     }
 }
