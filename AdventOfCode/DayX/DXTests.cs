@@ -32,9 +32,9 @@ namespace AdventOfCode.Day_X
 
             var path = "DayX\\DXTestInput.txt";
             var data = _parser.Parse(path);
-            var mostCalories = _solver.SolvePart1(data);
+            var restult = _solver.SolvePart1(data);
 
-            Assert.Equal(expected, mostCalories);
+            Assert.Equal(expected, restult);
         }
 
         [Fact]
@@ -44,9 +44,9 @@ namespace AdventOfCode.Day_X
 
             var path = "DayX\\DXInput.txt";
             var data = _parser.Parse(path);
-            var mostCalories = _solver.SolvePart1(data);
+            var result = _solver.SolvePart1(data);
 
-            Assert.Equal(expected, mostCalories);
+            Assert.Equal(expected, result);
         }
 
         [Fact]
@@ -56,9 +56,9 @@ namespace AdventOfCode.Day_X
 
             var path = "DayX\\DXTestInput.txt";
             var data = _parser.Parse(path);
-            var mostCalories = _solver.SolvePart2(data);
+            var result = _solver.SolvePart2(data);
 
-            Assert.Equal(expected, mostCalories);
+            Assert.Equal(expected, result);
         }
         
         [Fact]
@@ -68,9 +68,9 @@ namespace AdventOfCode.Day_X
 
             var path = "DayX\\DXInput.txt";
             var data = _parser.Parse(path);
-            var mostCalories = _solver.SolvePart2(data);
+            var result = _solver.SolvePart2(data);
 
-            Assert.Equal(expected, mostCalories);
+            Assert.Equal(expected, result);
         }
     }
 }
