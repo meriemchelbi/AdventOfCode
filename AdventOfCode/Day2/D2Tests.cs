@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using FluentAssertions;
+using System.Collections.Generic;
 using Xunit;
 
 namespace AdventOfCode.Day2
@@ -17,20 +18,28 @@ namespace AdventOfCode.Day2
         [Fact]
         public void TestInput_Parses_AsListOfInt()
         {
-            var expected = new List<int> { 0 };
+            var expected = new List<List<int>>
+            {
+                new(){ 7, 6, 4, 2, 1 },
+                new(){ 1, 2, 7, 8, 9 },
+                new(){ 9, 7, 6, 2, 1 },
+                new(){ 1, 3, 2, 4, 5 },
+                new(){ 8, 6, 4, 4, 1 },
+                new(){ 1, 3, 6, 7, 9 },
+            };
 
-            var path = "DayX\\DXTestInput.txt";
+            var path = "Day2\\D2TestInput.txt";
             var parsed = _parser.Parse(path);
 
-            Assert.Equal(expected, parsed);
+            parsed.Should().BeEquivalentTo(expected);
         }
 
         [Fact]
         public void Part1_Test()
         {
-            var expected = 24000;
+            var expected = 2;
 
-            var path = "DayX\\DXTestInput.txt";
+            var path = "Day2\\D2TestInput.txt";
             var data = _parser.Parse(path);
             var result = _solver.SolvePart1(data);
 
@@ -40,9 +49,9 @@ namespace AdventOfCode.Day2
         [Fact]
         public void Part1_Actual()
         {
-            var expected = 69693;
+            var expected = 516;
 
-            var path = "DayX\\DXInput.txt";
+            var path = "Day2\\D2Input.txt";
             var data = _parser.Parse(path);
             var result = _solver.SolvePart1(data);
 
@@ -52,9 +61,9 @@ namespace AdventOfCode.Day2
         [Fact]
         public void Part2_Test()
         {
-            var expected = 45000;
+            var expected = 4;
 
-            var path = "DayX\\DXTestInput.txt";
+            var path = "Day2\\D2TestInput.txt";
             var data = _parser.Parse(path);
             var result = _solver.SolvePart2(data);
 
@@ -64,9 +73,9 @@ namespace AdventOfCode.Day2
         [Fact]
         public void Part2_Actual()
         {
-            var expected = 200945;
+            var expected = 561;
 
-            var path = "DayX\\DXInput.txt";
+            var path = "Day2\\D2Input.txt";
             var data = _parser.Parse(path);
             var result = _solver.SolvePart2(data);
 

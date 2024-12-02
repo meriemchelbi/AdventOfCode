@@ -5,9 +5,9 @@ namespace AdventOfCode.Day2
 {
     public class D2Parser
     {
-        public List<int> Parse(string inputPath)
+        public List<List<int>> Parse(string inputPath)
         {
-            var output = new List<int>();
+            var output = new List<List<int>>();
 
             var absolutePath = Path.GetFullPath(inputPath);
 
@@ -17,18 +17,11 @@ namespace AdventOfCode.Day2
 
                 while ((line = sr.ReadLine()) != null)
                 {
-                    if (line.Length != 0)
-                    {
-                        var number = int.Parse(line);
-                        output.Add(number);
-                    }
-                    else
-                    {
-                        // do a thing 
-                    }
-                }
+                    var lineArray = line.Split(' ');
+                    var intList = lineArray.Select(s => int.Parse(s)).ToList();
 
-                // do the thing one last time
+                    output.Add(intList);
+                }
             }
 
             return output;
