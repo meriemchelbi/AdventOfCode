@@ -4,14 +4,28 @@ namespace AdventOfCode.Day3
 {
     public class D3Solver
     {
-        public int SolvePart1(List<int> input)
+        public int SolvePart1(List<(int, int)> input)
         {
-            return 0;
+            var result = 0;
+
+            foreach (var item in input)
+            {
+                result += (item.Item1 * item.Item2);
+            }
+            
+            return result;
         }
         
-        public int SolvePart2(List<int> input)
+        public int SolvePart2(List<(int, int)> input)
         {
-            return 0;
+            var result = 0;
+
+            foreach (var item in input)
+            {
+                result += (item.Item1 * item.Item2);
+            }
+
+            return result;
         }
     }
 }

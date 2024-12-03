@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using FluentAssertions;
+using System.Collections.Generic;
 using Xunit;
 
 namespace AdventOfCode.Day3
@@ -15,22 +16,43 @@ namespace AdventOfCode.Day3
         }
 
         [Fact]
-        public void TestInput_Parses_AsListOfInt()
+        public void TestInput1_Parses()
         {
-            var expected = new List<int> { 0 };
+            var expected = new List<(int,int)> 
+            { 
+                (2, 4),
+                (5, 5),
+                (11, 8),
+                (8, 5)
+            };
 
-            var path = "DayX\\DXTestInput.txt";
+            var path = "Day3\\D3TestInput.txt";
             var parsed = _parser.Parse(path);
 
-            Assert.Equal(expected, parsed);
+            parsed.Should().BeEquivalentTo(expected);
+        }
+        
+        [Fact]
+        public void TestInput2_Parses()
+        {
+            var expected = new List<(int,int)> 
+            { 
+                (2, 4),
+                (8, 5)
+            };
+
+            var path = "Day3\\D3TestInput2.txt";
+            var parsed = _parser.ParseComplex(path);
+
+            parsed.Should().BeEquivalentTo(expected);
         }
         
         [Fact]
         public void Part1_Test()
         {
-            var expected = 24000;
+            var expected = 161;
 
-            var path = "DayX\\DXTestInput.txt";
+            var path = "Day3\\D3TestInput.txt";
             var data = _parser.Parse(path);
             var result = _solver.SolvePart1(data);
 
@@ -40,9 +62,9 @@ namespace AdventOfCode.Day3
         [Fact]
         public void Part1_Actual()
         {
-            var expected = 69693;
+            var expected = 174103751;
 
-            var path = "DayX\\DXInput.txt";
+            var path = "Day3\\D3Input.txt";
             var data = _parser.Parse(path);
             var result = _solver.SolvePart1(data);
 
@@ -52,10 +74,10 @@ namespace AdventOfCode.Day3
         [Fact]
         public void Part2_Test()
         {
-            var expected = 45000;
+            var expected = 48;
 
-            var path = "DayX\\DXTestInput.txt";
-            var data = _parser.Parse(path);
+            var path = "Day3\\D3TestInput2.txt";
+            var data = _parser.ParseComplex(path);
             var result = _solver.SolvePart2(data);
 
             Assert.Equal(expected, result);
@@ -64,10 +86,10 @@ namespace AdventOfCode.Day3
         [Fact]
         public void Part2_Actual()
         {
-            var expected = 200945;
+            var expected = 31273975;// 31273975 too low, 174103751 too high
 
-            var path = "DayX\\DXInput.txt";
-            var data = _parser.Parse(path);
+            var path = "Day3\\D3Input.txt";
+            var data = _parser.ParseComplex(path);
             var result = _solver.SolvePart2(data);
 
             Assert.Equal(expected, result);

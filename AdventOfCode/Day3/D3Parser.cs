@@ -1,13 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using FluentAssertions.Collections;
+using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace AdventOfCode.Day3
 {
     public class D3Parser
     {
-        public List<int> Parse(string inputPath)
+        public List<(int, int)> Parse(string inputPath)
         {
-            var output = new List<int>();
+            var output = new List<(int, int)>();
 
             var absolutePath = Path.GetFullPath(inputPath);
 
@@ -17,21 +19,44 @@ namespace AdventOfCode.Day3
 
                 while ((line = sr.ReadLine()) != null)
                 {
-                    if (line.Length != 0)
-                    {
-                        var number = int.Parse(line);
-                        output.Add(number);
-                    }
-                    else
-                    {
-                        // do a thing 
-                    }
+                    var validInstructions = Regex.Matches(line, "mul\\([0-9]+,[0-9]+\\)").ToList();
+                    var parsedInstructions = validInstructions.Select(i => GetInstructionTuple(i));
+                    output.AddRange(parsedInstructions);
                 }
-
-                // do the thing one last time
             }
 
             return output;
+        }
+
+        internal List<(int, int)> ParseComplex(string path)
+        {
+            var output = new List<(int, int)>();
+
+            var absolutePath = Path.GetFullPath(path);
+
+            using (var sr = new StreamReader(absolutePath))
+            {
+                string line;
+
+                while ((line = sr.ReadLine()) != null)
+                {
+                    var validInstructionsString = Regex.Replace(line, "don't\\(\\).do\\(\\)", "");
+                    var validInstructions = Regex.Matches(validInstructionsString, "mul\\([0-9]+,[0-9]+\\)").ToList();
+                    var parsedInstructions = validInstructions.Select(i => GetInstructionTuple(i));
+                    output.AddRange(parsedInstructions);
+                }
+            }
+
+            return output;
+        }
+
+        private (int, int) GetInstructionTuple(Match instructionMatch)
+        {
+            var trimmedStart = instructionMatch.Value.Remove(0, 4);
+            var trimmedEnd = trimmedStart.Substring(0, trimmedStart.Length - 1);
+            var numbers = trimmedEnd.Split(',').Select(s => int.Parse(s)).ToList();
+            
+            return (numbers[0], numbers[1]);
         }
     }
 }
