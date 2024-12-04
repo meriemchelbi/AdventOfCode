@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using FluentAssertions;
+using System.Collections.Generic;
 using Xunit;
 
 namespace AdventOfCode.Day4
@@ -15,20 +16,32 @@ namespace AdventOfCode.Day4
         }
 
         [Fact]
-        public void TestInput_Parses_AsListOfInt()
+        public void TestInput_Parses_AsListOfString()
         {
-            var expected = new List<int> { 0 };
+            var expected = new List<string> 
+            {
+                "MMMSXXMASM",
+                "MSAMXMSMSA",
+                "AMXSXMAAMM",
+                "MSAMASMSMX",
+                "XMASAMXAMM",
+                "XXAMMXXAMA",
+                "SMSMSASXSS",
+                "SAXAMASAAA",
+                "MAMMMXMMMM",
+                "MXMXAXMASX"
+            };
 
             var path = "Day4\\D4TestInput.txt";
             var parsed = _parser.Parse(path);
 
-            Assert.Equal(expected, parsed);
+            parsed.Should().BeEquivalentTo(expected);
         }
         
         [Fact]
         public void Part1_Test()
         {
-            var expected = 24000;
+            var expected = 18;
 
             var path = "Day4\\D4TestInput.txt";
             var data = _parser.Parse(path);
@@ -40,7 +53,7 @@ namespace AdventOfCode.Day4
         [Fact]
         public void Part1_Actual()
         {
-            var expected = 69693;
+            var expected = 2427; // 2427 too low
 
             var path = "Day4\\D4Input.txt";
             var data = _parser.Parse(path);
