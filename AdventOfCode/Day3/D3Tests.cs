@@ -86,7 +86,7 @@ namespace AdventOfCode.Day3
         [Fact]
         public void Part2_Actual()
         {
-            var expected = 31273975;// 31273975 too low, 174103751 too high
+            var expected = 100411201;
 
             var path = "Day3\\D3Input.txt";
             var data = _parser.ParseComplex(path);
