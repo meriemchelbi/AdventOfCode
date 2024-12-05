@@ -45,10 +45,16 @@
     <None Update="Day4\D4TestInput.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Day5\D5Input.txt">
+    <None Update="Day5\D5InputPageUpdates.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Day5\D5TestInput.txt">
+    <None Update="Day5\D5InputOrderingRules.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Day5\D5TestInputPageUpdates.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Day5\D5TestInputOrderingRules.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="DayX\DXInput.txt">
