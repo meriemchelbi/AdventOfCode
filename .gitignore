@@ -348,3 +348,6 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+.DS_Store
+AdventOfCode/.idea/.idea.AdventOfCode/.idea/vcs.xml
+AdventOfCode/.idea/.idea.AdventOfCode/.idea/indexLayout.xml
