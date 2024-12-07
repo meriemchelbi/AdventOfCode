@@ -5,9 +5,9 @@ namespace AdventOfCode.Day7
 {
     public class D7Parser
     {
-        public List<int> Parse(string inputPath)
+        public List<CalibrationEquation> Parse(string inputPath)
         {
-            var output = new List<int>();
+            var output = new List<CalibrationEquation>();
 
             var absolutePath = Path.GetFullPath(inputPath);
 
@@ -17,18 +17,18 @@ namespace AdventOfCode.Day7
 
                 while ((line = sr.ReadLine()) != null)
                 {
-                    if (line.Length != 0)
-                    {
-                        var number = int.Parse(line);
-                        output.Add(number);
-                    }
-                    else
-                    {
-                        // do a thing 
-                    }
-                }
+                    var split = line.Split(':');
+                    var result = long.Parse(split[0]);
 
-                // do the thing one last time
+                    var numbersSplit = split[1].TrimStart().Split(' ');
+                    var numbers = numbersSplit.Select(n => int.Parse(n)).ToList();
+
+                    output.Add( new CalibrationEquation
+                    {
+                        Result = result,
+                        Numbers = numbers
+                    } );
+                }
             }
 
             return output;

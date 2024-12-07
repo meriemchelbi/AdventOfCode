@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using FluentAssertions;
+using System.Collections.Generic;
 using Xunit;
 
 namespace AdventOfCode.Day7
@@ -15,20 +16,31 @@ namespace AdventOfCode.Day7
         }
 
         [Fact]
-        public void TestInput_Parses_AsListOfInt()
+        public void TestInput_Parses()
         {
-            var expected = new List<int> { 0 };
+            var expected = new List<CalibrationEquation> 
+            {
+                new(){ Result = 190, Numbers = [10, 19]  },
+                new(){ Result = 3267, Numbers = [81, 40, 27]  },
+                new(){ Result = 83, Numbers = [17, 5]  },
+                new(){ Result = 156, Numbers = [15, 6]  },
+                new(){ Result = 7290, Numbers = [6, 8, 6, 15]  },
+                new(){ Result = 161011, Numbers = [16, 10, 13]  },
+                new(){ Result = 192, Numbers = [17, 8, 14]  },
+                new(){ Result = 21037, Numbers = [9, 7, 18, 13]  },
+                new(){ Result = 292, Numbers = [11, 6, 16, 20]  },
+            };
 
             var path = "Day7\\D7TestInput.txt";
             var parsed = _parser.Parse(path);
 
-            Assert.Equal(expected, parsed);
+            parsed.Should().BeEquivalentTo(expected);
         }
 
         [Fact]
         public void Part1_Test()
         {
-            var expected = 24000;
+            var expected = 3749;
 
             var path = "Day7\\D7TestInput.txt";
             var data = _parser.Parse(path);
@@ -40,7 +52,7 @@ namespace AdventOfCode.Day7
         [Fact]
         public void Part1_Actual()
         {
-            var expected = 69693;
+            var expected = 4122618559853;
 
             var path = "Day7\\D7Input.txt";
             var data = _parser.Parse(path);
@@ -52,7 +64,7 @@ namespace AdventOfCode.Day7
         [Fact]
         public void Part2_Test()
         {
-            var expected = 45000;
+            var expected = 11387;
 
             var path = "Day7\\D7TestInput.txt";
             var data = _parser.Parse(path);
@@ -64,7 +76,7 @@ namespace AdventOfCode.Day7
         [Fact]
         public void Part2_Actual()
         {
-            var expected = 200945;
+            var expected = 227615740238334;
 
             var path = "Day7\\D7Input.txt";
             var data = _parser.Parse(path);
