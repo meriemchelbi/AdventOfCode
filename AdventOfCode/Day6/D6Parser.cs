@@ -5,9 +5,9 @@ namespace AdventOfCode.Day6
 {
     public class D6Parser
     {
-        public List<int> Parse(string inputPath)
+        public List<string> Parse(string inputPath)
         {
-            var output = new List<int>();
+            var output = new List<string>();
 
             var absolutePath = Path.GetFullPath(inputPath);
 
@@ -17,18 +17,8 @@ namespace AdventOfCode.Day6
 
                 while ((line = sr.ReadLine()) != null)
                 {
-                    if (line.Length != 0)
-                    {
-                        var number = int.Parse(line);
-                        output.Add(number);
-                    }
-                    else
-                    {
-                        // do a thing 
-                    }
+                    output.Add(line);
                 }
-
-                // do the thing one last time
             }
 
             return output;

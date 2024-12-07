@@ -69,10 +69,10 @@
     <None Update="DayX\DXTestInput.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Day6\DXInput.txt">
+    <None Update="Day6\D6Input.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Day6\DXTestInput.txt">
+    <None Update="Day6\D6TestInput.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

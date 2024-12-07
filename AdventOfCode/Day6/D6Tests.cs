@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using FluentAssertions;
+using System.Collections.Generic;
 using Xunit;
 
 namespace AdventOfCode.Day6
@@ -15,20 +16,32 @@ namespace AdventOfCode.Day6
         }
 
         [Fact]
-        public void TestInput_Parses_AsListOfInt()
+        public void TestInput_Parses()
         {
-            var expected = new List<int> { 0 };
+            var expected = new List<string> 
+            {
+                "....#.....",
+                ".........#",
+                "..........",
+                "..#.......",
+                ".......#..",
+                "..........",
+                ".#..^.....",
+                "........#.",
+                "#.........",
+                "......#..."
+            };
 
             var path = "Day6\\D6TestInput.txt";
             var parsed = _parser.Parse(path);
 
-            Assert.Equal(expected, parsed);
+            parsed.Should().BeEquivalentTo(expected);
         }
 
         [Fact]
         public void Part1_Test()
         {
-            var expected = 24000;
+            var expected = 41;
 
             var path = "Day6\\D6TestInput.txt";
             var data = _parser.Parse(path);
@@ -40,9 +53,9 @@ namespace AdventOfCode.Day6
         [Fact]
         public void Part1_Actual()
         {
-            var expected = 69693;
+            var expected = 4663;
 
-            var path = "Day6\\DXInput.txt";
+            var path = "Day6\\D6Input.txt";
             var data = _parser.Parse(path);
             var result = _solver.SolvePart1(data);
 
@@ -52,7 +65,7 @@ namespace AdventOfCode.Day6
         [Fact]
         public void Part2_Test()
         {
-            var expected = 45000;
+            var expected = 6;
 
             var path = "Day6\\D6TestInput.txt";
             var data = _parser.Parse(path);
