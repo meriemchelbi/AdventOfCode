@@ -50,35 +50,55 @@ namespace AdventOfCode.Day5
 
         private List<int> Reorder(List<int> update)
         {
-            // get rules for each page in update
+            var orderedList = new List<int>();
             var relevantRules = _orderedRules.Where(r => update.Contains(r.Key)).ToList();
 
             // remove pages from values which aren't in update
             var filteredRules = relevantRules.ToDictionary(r => r.Key, r => r.Value.Intersect(update).ToList());
 
-            // order based on number of elements in value 
-            var orderedFilteredRules = filteredRules.OrderByDescending(r => r.Value.Count).ToDictionary();
-            
-            var knownPages = orderedFilteredRules.Select(r => r.Key).ToList();
+            var firstItem = filteredRules.Where(r => update.Contains(r.Key))
+                                            .OrderByDescending(r => r.Value.Count)
+                                            .FirstOrDefault();
 
-            var orderedUnknown = update.Except(knownPages).ToList();
 
-            if (orderedUnknown.Count == 0)
+            foreach (var child in firstItem.Value)
             {
-                return knownPages;
+                if (!update.Contains(child) || orderedList.Contains(child))
+                    continue;
+
+                if (!orderedList.Contains(child))
+                {
+                    GetSmallestChild(child, orderedList, filteredRules);
+                }
             }
 
-            foreach (var item in orderedUnknown)
+            orderedList.Add(firstItem.Key);
+
+            return orderedList.Distinct().Reverse().ToList();
+        }
+
+        private void GetSmallestChild(int item,
+                                      List<int> orderedList,
+                                      Dictionary<int, List<int>> filteredRules)
+        {
+            var hasRule = filteredRules.TryGetValue(item, out var rule);
+
+            if (!hasRule || rule.Count == 0)
             {
-                var precedingItems = relevantRules.Where(r => r.Value.Contains(item))
-                                         .Select(r => r.Key).ToList();
-
-                var highestPrecedingItemIndex = precedingItems.Max(p => knownPages.IndexOf(p));
-
-                knownPages.Insert(highestPrecedingItemIndex + 1, item);
+                orderedList.Add(item);
+                return;
             }
 
-            return knownPages;
+            if (orderedList.All(o => rule.Contains(o)))
+            {
+                orderedList.Add(item);
+                return;
+            }
+
+            foreach (var child in rule)
+            {
+                GetSmallestChild(child, orderedList, filteredRules);
+            }
         }
 
         private bool IsCorrectlyOrdered(List<int> update)
