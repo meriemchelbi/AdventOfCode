@@ -77,9 +77,9 @@ namespace AdventOfCode.Day6
         [Fact]
         public void Part2_Actual()
         {
-            var expected = 200945;
+            var expected = 200945; // 1278 too low, 1505 too low
 
-            var path = "Day6\\DXInput.txt";
+            var path = "Day6\\D6Input.txt";
             var data = _parser.Parse(path);
             var result = _solver.SolvePart2(data);
 

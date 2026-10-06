@@ -24,7 +24,58 @@ namespace AdventOfCode.Day6
 
         public int SolvePart2(List<string> input)
         {
-            return 0;
+            var numberOfLoops = 0;
+
+            for (int obstacleRow = 0; obstacleRow < input.Count; obstacleRow++)
+            {
+                for (int obstacleColumn = 0; obstacleColumn < input[0].Length; obstacleColumn++)
+                {
+                    var clonedInput = input.ToList();
+
+                    var currentRow = clonedInput.First(i => i.Contains('^'));
+                    var guardRow = clonedInput.IndexOf(currentRow);
+                    var guardColumn = currentRow.IndexOf('^');
+
+                    // if space is guard starting position, continue
+                    if (obstacleRow == guardRow && obstacleColumn == guardColumn)
+                        break;
+
+                    // replace space with obstacle
+                    clonedInput[obstacleRow] = ReplaceSpace(clonedInput[obstacleRow], obstacleColumn, '#');
+
+                    var startingPosition = (guardRow, guardColumn);
+                    var direction = clonedInput[guardRow][guardColumn];
+
+                    var startingState = new State { Position = startingPosition, Direction = direction };
+                    var previousPositions = new List<State> { startingState };
+
+                    var currentPosition = startingPosition;
+
+                    while (!IsOnMapEdge(currentPosition.guardRow, currentPosition.guardColumn, clonedInput))
+                    {
+                        currentPosition = MoveGuard(direction, currentPosition.guardRow, currentPosition.guardColumn, clonedInput);
+                        var currentState = new State { Position = currentPosition, Direction = direction };
+                        if (previousPositions.Last().Position == currentPosition 
+                            && previousPositions.Last().Direction == direction)
+
+                        {
+                            break;
+                        }
+                        if (previousPositions.Any(p => p.Position == currentState.Position
+                                                       && p.Direction == currentState.Direction))
+                        {
+                            numberOfLoops++;
+                            break;
+                        }
+
+                        previousPositions.Add(currentState);
+                        direction = GetNextDirection(direction);
+                    }
+                }
+
+            }
+
+            return numberOfLoops;
         }
         private char GetNextDirection(char guard)
         {
@@ -80,9 +131,9 @@ namespace AdventOfCode.Day6
             for (int i = currentRow - 1; i > -1; i--)
             {
                 var nextDistrict = input[i][CurrentColumn];
-                if (nextDistrict.Equals('.') || nextDistrict.Equals('X'))
+                if (nextDistrict.Equals('.') || nextDistrict.Equals('X') || nextDistrict.Equals('^'))
                 {
-                    input[i] = MarkVisited(input[i], CurrentColumn);
+                    input[i] = ReplaceSpace(input[i], CurrentColumn, 'X');
 
                     if (i == 0)
                     {
@@ -92,7 +143,7 @@ namespace AdventOfCode.Day6
 
                     continue;
                 }
-                if (nextDistrict.Equals('#'))
+                if (nextDistrict.Equals('#') && i != currentRow - 1)
                 {
                     currentRow = i + 1;
                     break;
@@ -102,22 +153,14 @@ namespace AdventOfCode.Day6
             return (currentRow, CurrentColumn);
         }
 
-        private string MarkVisited(string row, int currentColumn)
-        {
-            var list = row.ToList();
-            list[currentColumn] = 'X';
-
-            return new string(list.ToArray());
-        }
-
         private (int, int) MoveDown(int currentRow, int CurrentColumn, List<string> input)
         {
             for (int i = currentRow + 1; i < input.Count; i++)
             {
                 var nextDistrict = input[i][CurrentColumn];
-                if (nextDistrict.Equals('.') || nextDistrict.Equals('X'))
+                if (nextDistrict.Equals('.') || nextDistrict.Equals('X') || nextDistrict.Equals('^'))
                 {
-                    input[i] = MarkVisited(input[i], CurrentColumn);
+                    input[i] = ReplaceSpace(input[i], CurrentColumn, 'X');
 
                     if (i == input.Count - 1)
                     {
@@ -141,9 +184,9 @@ namespace AdventOfCode.Day6
             for (int i = currentColumn - 1; i > -1; i--)
             {
                 var nextDistrict = input[currentRow][i];
-                if (nextDistrict.Equals('.') || nextDistrict.Equals('X'))
+                if (nextDistrict.Equals('.') || nextDistrict.Equals('X') || nextDistrict.Equals('^'))
                 {
-                    input[currentRow] = MarkVisited(input[currentRow], i);
+                    input[currentRow] = ReplaceSpace(input[currentRow], i, 'X');
 
                     if (i == 0)
                     {
@@ -167,9 +210,9 @@ namespace AdventOfCode.Day6
             for (int i = CurrentColumn + 1; i < input.Count; i++)
             {
                 var nextDistrict = input[currentRow][i];
-                if (nextDistrict.Equals('.') || nextDistrict.Equals('X'))
+                if (nextDistrict.Equals('.') || nextDistrict.Equals('X') || nextDistrict.Equals('^'))
                 {
-                    input[currentRow] = MarkVisited(input[currentRow], i);
+                    input[currentRow] = ReplaceSpace(input[currentRow], i, 'X');
 
                     if (i == input[0].Length - 1)
                     {
@@ -186,6 +229,20 @@ namespace AdventOfCode.Day6
             }
 
             return (currentRow, CurrentColumn);
+        }
+
+        private string ReplaceSpace(string row, int currentColumn, char replaceWith)
+        {
+            var list = row.ToList();
+            list[currentColumn] = replaceWith;
+
+            return new string(list.ToArray());
+        }
+
+        private class State
+        {
+            public (int, int) Position;
+            public char Direction;
         }
     }
 }
